@@ -1,0 +1,20 @@
+@use 'container';
+#content {
+    font-family: container.$font;
+    background-color: rgb(222, 249, 196);
+
+    .content-header {
+        margin: 0 auto;
+        max-width: 1000px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+
+.tasks-div {
+    display: flex;
+    flex-direction: column;
+    max-width: 1000px;
+    margin: 0 auto;
+}

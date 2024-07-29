@@ -1,0 +1,40 @@
+@use 'container';
+
+#sidebar {
+    display: flex;
+    flex-direction: column;
+    padding: 3rem 2rem 3rem 4rem;
+    overflow: auto;
+    font-family: container.$font;
+    width: 250px;
+    background-color: rgb(80, 180, 152);
+
+    button {
+        font-size: 1.5rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        text-align: left;
+    }
+
+    .sidebar-btn {
+        padding: 10px 0;
+    }
+}
+
+.sidebar-project-div {
+    display: flex;
+    flex-direction: column;
+
+    .sidebar-projects-header {
+        font-size: 1.6rem;
+        font-weight: 500;
+        margin: 10px 0 20px 0;
+    }
+
+    .sidebar-project-btn {
+        padding: 5px 0 0 25px;
+        margin-bottom: 10px;
+        font-size: 1.4rem;
+    }
+}
