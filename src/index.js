@@ -51,5 +51,5 @@ function intiializeApp() {
 
 intiializeApp();
 
-export { createElement }
+export { createElement, priorities }
 

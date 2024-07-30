@@ -1,6 +1,8 @@
 import { Project } from "../project";
 import { TodoItem } from "../item";
-import { createElement } from "../../index";
+import { createElement, priorities } from "../../index";
+import editImg from "../../media/edit.svg";
+import deleteImg from "../../media/delete.svg"
 
 const content = createElement("div", [], "content", null);
 const contentHeader = createElement("div", ["content-header"], null, null);
@@ -13,13 +15,63 @@ const clearContent = function() {
 }
 
 const buildHeader = function(title) {
-    let currTitle = createElement("h1", ["content-curr-title"], null, title);
+    let currTitle = createElement("div", ["content-curr-title"], null, title);
     contentHeader.appendChild(currTitle);
     content.appendChild(contentHeader);
 }
 
-const createTaskElement = function(title, description, dueDate, priority) {
-    let item  = createElement("p", null, null, `Title is ${title} with ${description} with due date ${dueDate} and priority ${priority}`);
+const assignItemPriority = function(item, priority) {
+    switch(priority) {
+        case (priorities.low):
+            item.classList.add("priority-low");
+            break;
+        case (priorities.medium):
+            item.classList.add("priority-medium");
+            break;
+        case (priorities.high):
+            item.classList.add("priority-high");
+            break;
+    }
+}
+
+const switchTaskCompleteStatus = function(item, task) {
+    // switching to not complete
+    if (task.isComplete) {
+        item.classList.remove("task-complete");
+    // switching to complete
+    } else {
+        item.classList.add("task-complete");
+    }
+    task.isComplete = !task.isComplete;
+}
+
+const createTaskElement = function(task) {
+    let item  = createElement("div", ["task-item"], null, null);
+
+    assignItemPriority(item, task.priority);
+
+    let leftPart = createElement("div", ["item-left-part"], null, null);
+    let checkbox = createElement("div", ["item-checkbox"], null, null);
+    checkbox.addEventListener('click',  () => switchTaskCompleteStatus(item, task));
+    let taskTitle = createElement("p", ["item-title"], null, task.title);
+
+    leftPart.appendChild(checkbox);
+    leftPart.appendChild(taskTitle);
+
+    let rightPart = createElement("div", ["item-right-part"], null, null);
+    let detailBtn = createElement("button", ["item-detail-btn"], null, "DETAILS");
+    let editBtn = createElement("button", ["item-edit-btn"], null, null);
+    editBtn.innerHTML = editImg;
+    let deleteBtn = createElement("button", ["item-delete-btn"], null, null);
+    deleteBtn.innerHTML = deleteImg;
+
+    rightPart.appendChild(detailBtn);
+    rightPart.appendChild(editBtn);
+    rightPart.appendChild(deleteBtn);
+
+    item.appendChild(leftPart);
+    item.appendChild(rightPart);
+
     return item;
 }
 
@@ -29,7 +81,7 @@ const buildTasks = function(projectTasks) {
 
     let taskList = createElement("div", ["task-list"], null, null);
     for (let task of projectTasks) {
-        let taskElement = createTaskElement(task.title, task.description, task.dueDate, task.priority);
+        let taskElement = createTaskElement(task);
         taskList.appendChild(taskElement);
     }
 

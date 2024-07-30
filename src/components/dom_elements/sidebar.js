@@ -17,9 +17,7 @@ const initializeSidebar = function() {
 
 const createProjectElement = function(project) {
     let projectBtn = createElement("button", ["sidebar-project-btn"], project.id, project.name);
-    projectBtn.addEventListener('click', function() {
-       changeProjectToDisplay(project)
-    });
+    projectBtn.addEventListener('click', () => changeProjectToDisplay(project));
     return projectBtn;
 }
 

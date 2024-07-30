@@ -7,7 +7,7 @@
     overflow: auto;
     font-family: container.$font;
     width: 250px;
-    background-color: rgb(80, 180, 152);
+    background-color: rgb(247, 231, 220);
 
     button {
         font-size: 1.5rem;
@@ -27,7 +27,7 @@
     flex-direction: column;
 
     .sidebar-projects-header {
-        font-size: 1.6rem;
+        font-size: container.$subheader-size;
         font-weight: 500;
         margin: 10px 0 20px 0;
     }
