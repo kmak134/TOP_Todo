@@ -1,40 +1,55 @@
 @use 'container';
+@use 'content';
+@use 'header';
+
+$sidebar-font-color: rgb(64, 93, 114);
+$btn-selected-color: rgba(245, 237, 237, 0.8);
+$btn-hover-border-color: rgb(64, 93, 114);
 
 #sidebar {
     display: flex;
     flex-direction: column;
-    padding: 3rem 2rem 3rem 4rem;
+    width: 300px;
     overflow: auto;
-    font-family: container.$font;
-    width: 250px;
-    background-color: rgb(247, 231, 220);
+    font-family: Inter;
+    background-color: $sidebar-color;
+    align-items: center;
+    padding: 40px 0;
+    color: $sidebar-font-color;
 
     button {
-        font-size: 1.5rem;
-        background: none;
-        border: none;
+        font-size: 1.2rem;
+        background-color: $content-background-color;
+        border: 3px solid $sidebar-color;
         cursor: pointer;
         text-align: left;
-    }
+        max-width: 250px;
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 3px;
+        color: $sidebar-font-color;
+        transition: 0.4s ease-in-out;
 
-    .sidebar-btn {
-        padding: 10px 0;
+        &:hover {
+            border: 3px solid $btn-hover-border-color;
+        }
+        
     }
 }
 
 .sidebar-project-div {
     display: flex;
     flex-direction: column;
+    max-width: 250px;
+    width: 100%;
+    margin: 40px 0 20px 0;
 
     .sidebar-projects-header {
         font-size: container.$subheader-size;
-        font-weight: 500;
+        font-weight: 600;
         margin: 10px 0 20px 0;
-    }
-
-    .sidebar-project-btn {
-        padding: 5px 0 0 25px;
-        margin-bottom: 10px;
-        font-size: 1.4rem;
+        border-bottom: 2px solid $sidebar-font-color;
+        padding: 10px;
     }
 }

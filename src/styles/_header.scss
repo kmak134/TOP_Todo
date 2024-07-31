@@ -1,8 +1,10 @@
+@use 'container';
+
 #header {
-    font-family: $font;
-    font-size: $header-size;
+    font-family: container.$font;
+    font-size: container.$header-size;
     font-weight: 500;
     padding: 20px;
     padding-left: 4rem;
-    background-color: rgb(64, 93, 114);
+    background-color: container.$header-color;
 }
