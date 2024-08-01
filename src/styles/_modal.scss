@@ -1,0 +1,199 @@
+@use "content";
+
+$modal-header-color: rgb(100, 130, 173);
+$modal-content-color: rgb(245, 237, 237);
+$btn-border-default-color: rgb(204, 204, 204);;
+$btn-border-active-color: rgb(127, 161, 195);
+$font: Inter;
+$low-priority-color: #508D4E;
+$medium-priority-color: rgb(255, 168, 35);
+$high-priority-color: #E4003A;
+
+@mixin text-input {
+    font-size: 1.1rem;
+    padding: 10px;
+}
+
+@mixin input-highlighting {
+    box-sizing: border-box;
+    border-radius: 3px;
+    border: 1px solid rgb(204, 204, 204);
+    transition: 0.3s;
+
+    &:focus {
+        outline: none;
+        border-color: $btn-border-active-color;
+        transition: 0.3s;
+    }
+}
+
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(3px);
+    background-color: rgb(0, 0, 0, 0.4);
+    margin: 0 auto;
+}
+
+
+.add-task-modal {
+    position: relative;
+    max-width: 500px;
+    margin: 10% auto;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    box-sizing: border-box;
+    font-family: $font;
+
+    .add-task-header {
+        background-color: $modal-header-color;
+        padding: 15px 30px;
+        font-size: 1.5rem;
+        font-weight: 600;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        button {
+            @include item-icon-btn;
+            background-color: $modal-header-color;
+        }
+    }
+}
+
+.add-task-form {
+    background-color: $modal-content-color;
+    border-radius: 5px;
+    padding: 15px;
+    overflow: hidden;
+
+    .form-input {
+        display: flex;
+        flex-direction: column;
+        padding: 10px 0;
+
+        label {
+            font-size: 1.2rem;
+        }
+
+        .input-text {
+            @include text-input();
+            @include input-highlighting();
+        }
+
+        .input-textarea {
+            @include text-input();
+            @include input-highlighting();
+            resize: vertical;
+            max-height: 250px;
+        }
+
+        .input-date {
+            font-size: 1.1rem;
+            font-family: Roboto;
+            padding: 10px;
+            @include input-highlighting();
+        }
+    }
+
+    .priority-input {
+        padding: 10px 0;
+
+        .priority-btn-div {
+            display: flex;
+            flex-direction: row;
+            column-gap: 20px;
+        }
+
+        .radio-btn-label {
+            display: block;
+            background: none;
+     
+            border-radius: 5px;
+            padding: 10px 20px;
+ 
+            margin-bottom: 5px;
+            cursor: pointer;
+            width: max-content;
+            text-align: center;
+            z-index: 90;
+        }
+
+        #low.radio-btn-label {
+            color: $low-priority-color;
+            border: 2px solid $low-priority-color;
+
+            &:hover {
+                color: rgb(245, 237, 237);
+                background-color: $low-priority-color;
+            }
+        }
+
+        #medium.radio-btn-label {
+            color: $medium-priority-color;
+            border: 2px solid $medium-priority-color;
+
+            &:hover {
+                color: rgb(245, 237, 237);
+                background-color: $medium-priority-color;
+            }
+
+        }
+
+        #high.radio-btn-label {
+            color: $high-priority-color;
+            border: 2px solid $high-priority-color;
+
+            &:hover {
+                color: rgb(245, 237, 237);
+                background-color: $high-priority-color;
+            }
+        }
+
+        .radio-btn {
+            position: fixed;
+            width: 0;
+            opacity: 0;
+        }
+
+        .radio-btn-label:hover {
+            transition: 0.3s;
+        }
+
+        .radio-btn:checked + #low.radio-btn-label {
+            color: rgb(245, 237, 237);
+            background-color: $low-priority-color;
+            transition: 0.3s;
+        }
+        
+        .radio-btn:checked + #medium.radio-btn-label {
+            color: rgb(245, 237, 237);
+            background-color: $medium-priority-color;
+            transition: 0.3s;
+        }
+
+        .radio-btn:checked + #high.radio-btn-label {
+            color: rgb(245, 237, 237);
+            background-color: $high-priority-color;
+            transition: 0.3s;
+        }
+    }
+
+    .submit-btn {
+        @include input-highlighting();
+        float: inline-end;
+        width: max-content;
+        padding: 10px;
+        background: none;
+ 
+        font-family: $font;
+        font-size: 1.4rem;
+        text-align: center;
+        
+        cursor: pointer;
+    }
+}

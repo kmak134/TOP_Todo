@@ -1,8 +1,9 @@
 import { Project } from "../project";
 import { TodoItem } from "../item";
 import { createElement, priorities } from "../../index";
-import editImg from "../../media/edit.svg";
-import deleteImg from "../../media/delete.svg"
+import editIcon from "../../media/edit.svg";
+import deleteIcon from "../../media/delete.svg";
+import addIcon from "../../media/add.svg";
 
 const content = createElement("div", [], "content", null);
 const contentHeader = createElement("div", ["content-header"], null, null);
@@ -61,9 +62,9 @@ const createTaskElement = function(task) {
     let rightPart = createElement("div", ["item-right-part"], null, null);
     let detailBtn = createElement("button", ["item-detail-btn"], null, "DETAILS");
     let editBtn = createElement("button", ["item-edit-btn"], null, null);
-    editBtn.innerHTML = editImg;
+    editBtn.innerHTML = editIcon;
     let deleteBtn = createElement("button", ["item-delete-btn"], null, null);
-    deleteBtn.innerHTML = deleteImg;
+    deleteBtn.innerHTML = deleteIcon;
 
     rightPart.appendChild(detailBtn);
     rightPart.appendChild(editBtn);
@@ -77,6 +78,10 @@ const createTaskElement = function(task) {
 
 const buildTasks = function(projectTasks) {
     let taskHeader = createElement("div", ["tasks-header"], null, `Tasks (${projectTasks.length})`);
+    let addTaskBtn = createElement("button", ["add-task-btn"], null, null);
+    addTaskBtn.innerHTML = addIcon;
+
+    taskHeader.appendChild(addTaskBtn);
     tasksDiv.appendChild(taskHeader);
 
     let taskList = createElement("div", ["task-list"], null, null);

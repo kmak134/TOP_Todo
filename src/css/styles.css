@@ -91,10 +91,26 @@ html body {
 }
 
 .tasks-div .tasks-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   font-size: 1.6rem;
   font-weight: 500;
   border-bottom: 2px solid rgb(100, 130, 173);
   padding: 15px 30px;
+}
+
+.tasks-div .tasks-header button {
+  width: 1.5rem;
+  height: 1.5rem;
+  background-size: cover;
+  background-color: rgb(235, 229, 229);
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  width: 1.8rem;
+  height: 1.8rem;
+  background-color: rgb(245, 237, 237);
 }
 
 .tasks-div .task-list {
@@ -349,10 +365,25 @@ html body {
   margin: 0 auto;
 }
 .tasks-div .tasks-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   font-size: 1.6rem;
   font-weight: 500;
   border-bottom: 2px solid rgb(100, 130, 173);
   padding: 15px 30px;
+}
+.tasks-div .tasks-header button {
+  width: 1.5rem;
+  height: 1.5rem;
+  background-size: cover;
+  background-color: rgb(235, 229, 229);
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  width: 1.8rem;
+  height: 1.8rem;
+  background-color: rgb(245, 237, 237);
 }
 .tasks-div .task-list {
   padding: 0px 30px 10px 30px;
@@ -443,4 +474,370 @@ html body {
 
 .priority-high {
   border-left: 15px solid #E4003A;
+}
+
+html {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+html body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+#todo-container {
+  width: 100%;
+  display: grid;
+  grid-template-areas: "header header" "sidebar content";
+  grid-template-rows: min-content 1fr;
+  grid-template-columns: max-content 1fr;
+  border: 1px solid black;
+}
+
+#header {
+  grid-area: header;
+}
+
+#sidebar {
+  grid-area: sidebar;
+}
+
+#content {
+  grid-area: content;
+}
+
+#content {
+  font-family: Roboto;
+  background-color: rgb(245, 237, 237);
+}
+
+#content .content-header {
+  margin: 20px auto;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+.tasks-div {
+  display: flex;
+  flex-direction: column;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.tasks-div .tasks-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 1.6rem;
+  font-weight: 500;
+  border-bottom: 2px solid rgb(100, 130, 173);
+  padding: 15px 30px;
+}
+
+.tasks-div .tasks-header button {
+  width: 1.5rem;
+  height: 1.5rem;
+  background-size: cover;
+  background-color: rgb(235, 229, 229);
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  width: 1.8rem;
+  height: 1.8rem;
+  background-color: rgb(245, 237, 237);
+}
+
+.tasks-div .task-list {
+  padding: 0px 30px 10px 30px;
+  margin: 20px 0;
+  overflow: auto;
+}
+
+.task-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 5px 15px;
+  border-radius: 10px;
+  background-color: rgb(235, 229, 229);
+  margin: 10px 0 15px 0;
+}
+
+.task-item .item-left-part {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.task-item .item-left-part .item-checkbox {
+  height: 1.3rem;
+  width: 1.3rem;
+  cursor: pointer;
+  background-color: rgb(245, 237, 237);
+  border: 1px solid black;
+  border-radius: 50%;
+  margin-right: 1.5rem;
+}
+
+.task-item .item-left-part .item-title {
+  font-size: 1.2rem;
+  max-width: 600px;
+  text-overflow: ellipsis;
+}
+
+.task-item .item-right-part {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  -moz-column-gap: 20px;
+       column-gap: 20px;
+}
+
+.task-item .item-right-part .item-detail-btn {
+  font-size: 0.9rem;
+  color: rgb(117, 134, 148);
+  border-color: rgb(117, 134, 148);
+  background: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 3px;
+  letter-spacing: 1px;
+}
+
+.task-item .item-right-part .item-edit-btn {
+  width: 1.5rem;
+  height: 1.5rem;
+  background-size: cover;
+  background-color: rgb(235, 229, 229);
+  cursor: pointer;
+  padding: 0;
+  border: none;
+}
+
+.task-item .item-right-part .item-delete-btn {
+  width: 1.5rem;
+  height: 1.5rem;
+  background-size: cover;
+  background-color: rgb(235, 229, 229);
+  cursor: pointer;
+  padding: 0;
+  border: none;
+}
+
+.task-complete .item-left-part .item-checkbox {
+  background-color: #6482AD;
+}
+
+.task-complete .item-left-part .item-title {
+  text-decoration: line-through;
+}
+
+.priority-low {
+  border-left: 15px solid #508D4E;
+}
+
+.priority-medium {
+  border-left: 15px solid #F9E400;
+}
+
+.priority-high {
+  border-left: 15px solid #E4003A;
+}
+
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  -webkit-backdrop-filter: blur(3px);
+          backdrop-filter: blur(3px);
+  background-color: rgba(0, 0, 0, 0.4);
+  margin: 0 auto;
+}
+
+.add-task-modal {
+  position: relative;
+  max-width: 500px;
+  margin: 10% auto;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  box-sizing: border-box;
+  font-family: Inter;
+}
+.add-task-modal .add-task-header {
+  background-color: rgb(100, 130, 173);
+  padding: 15px 30px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.add-task-modal .add-task-header button {
+  width: 1.5rem;
+  height: 1.5rem;
+  background-size: cover;
+  background-color: rgb(235, 229, 229);
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  background-color: rgb(100, 130, 173);
+}
+
+.add-task-form {
+  background-color: rgb(245, 237, 237);
+  border-radius: 5px;
+  padding: 15px;
+  overflow: hidden;
+}
+.add-task-form .form-input {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+}
+.add-task-form .form-input label {
+  font-size: 1.2rem;
+}
+.add-task-form .form-input .input-text {
+  font-size: 1.1rem;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 3px;
+  border: 1px solid rgb(204, 204, 204);
+  transition: 0.3s;
+}
+.add-task-form .form-input .input-text:focus {
+  outline: none;
+  border-color: rgb(127, 161, 195);
+  transition: 0.3s;
+}
+.add-task-form .form-input .input-textarea {
+  font-size: 1.1rem;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 3px;
+  border: 1px solid rgb(204, 204, 204);
+  transition: 0.3s;
+  resize: vertical;
+  max-height: 250px;
+}
+.add-task-form .form-input .input-textarea:focus {
+  outline: none;
+  border-color: rgb(127, 161, 195);
+  transition: 0.3s;
+}
+.add-task-form .form-input .input-date {
+  font-size: 1.1rem;
+  font-family: Roboto;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 3px;
+  border: 1px solid rgb(204, 204, 204);
+  transition: 0.3s;
+}
+.add-task-form .form-input .input-date:focus {
+  outline: none;
+  border-color: rgb(127, 161, 195);
+  transition: 0.3s;
+}
+.add-task-form .priority-input {
+  padding: 10px 0;
+}
+.add-task-form .priority-input .priority-btn-div {
+  display: flex;
+  flex-direction: row;
+  -moz-column-gap: 20px;
+       column-gap: 20px;
+}
+.add-task-form .priority-input .radio-btn-label {
+  display: block;
+  background: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  width: -moz-max-content;
+  width: max-content;
+  text-align: center;
+  z-index: 90;
+}
+.add-task-form .priority-input #low.radio-btn-label {
+  color: #508D4E;
+  border: 2px solid #508D4E;
+}
+.add-task-form .priority-input #low.radio-btn-label:hover {
+  color: rgb(245, 237, 237);
+  background-color: #508D4E;
+}
+.add-task-form .priority-input #medium.radio-btn-label {
+  color: rgb(255, 168, 35);
+  border: 2px solid rgb(255, 168, 35);
+}
+.add-task-form .priority-input #medium.radio-btn-label:hover {
+  color: rgb(245, 237, 237);
+  background-color: rgb(255, 168, 35);
+}
+.add-task-form .priority-input #high.radio-btn-label {
+  color: #E4003A;
+  border: 2px solid #E4003A;
+}
+.add-task-form .priority-input #high.radio-btn-label:hover {
+  color: rgb(245, 237, 237);
+  background-color: #E4003A;
+}
+.add-task-form .priority-input .radio-btn {
+  position: fixed;
+  width: 0;
+  opacity: 0;
+}
+.add-task-form .priority-input .radio-btn-label:hover {
+  transition: 0.3s;
+}
+.add-task-form .priority-input .radio-btn:checked + #low.radio-btn-label {
+  color: rgb(245, 237, 237);
+  background-color: #508D4E;
+  transition: 0.3s;
+}
+.add-task-form .priority-input .radio-btn:checked + #medium.radio-btn-label {
+  color: rgb(245, 237, 237);
+  background-color: rgb(255, 168, 35);
+  transition: 0.3s;
+}
+.add-task-form .priority-input .radio-btn:checked + #high.radio-btn-label {
+  color: rgb(245, 237, 237);
+  background-color: #E4003A;
+  transition: 0.3s;
+}
+.add-task-form .submit-btn {
+  box-sizing: border-box;
+  border-radius: 3px;
+  border: 1px solid rgb(204, 204, 204);
+  transition: 0.3s;
+  float: inline-end;
+  width: -moz-max-content;
+  width: max-content;
+  padding: 10px;
+  background: none;
+  font-family: Inter;
+  font-size: 1.4rem;
+  text-align: center;
+  cursor: pointer;
+}
+.add-task-form .submit-btn:focus {
+  outline: none;
+  border-color: rgb(127, 161, 195);
+  transition: 0.3s;
 }

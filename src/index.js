@@ -4,6 +4,7 @@ import { TodoItem } from "./components/item";
 import { Project } from "./components/project";
 import { ProjectList } from "./components/projectlist";
 import { Content } from "./components/dom_elements/content";
+import { Modal, renderAddTaskModal } from "./components/dom_elements/modal";
 import Sidebar from "./components/dom_elements/sidebar";
 
 const app = document.querySelector("#todo-container");
@@ -47,6 +48,7 @@ function createElement(type, classes, id, content) {
 function intiializeApp() {
     app.appendChild(Sidebar(projectList.projects));
     app.appendChild(Content());
+    app.appendChild(Modal());
 }
 
 intiializeApp();
