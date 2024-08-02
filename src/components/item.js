@@ -1,3 +1,5 @@
+import { priorities } from "../index";
+
 class TodoItem {
     constructor(
         title = "",

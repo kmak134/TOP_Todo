@@ -29,6 +29,10 @@ class Project {
         return this._items;
     }
 
+    set items(items) {
+        this._items = items;
+    }
+
     get id() {
         return this._id;
     }

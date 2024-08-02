@@ -676,6 +676,7 @@ html body {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
   box-sizing: border-box;
   font-family: Inter;
+  animation: scale-into 0.4s both;
 }
 .add-task-modal .add-task-header {
   background-color: rgb(100, 130, 173);
@@ -753,14 +754,21 @@ html body {
   border-color: rgb(127, 161, 195);
   transition: 0.3s;
 }
+.add-task-form .form-input .label-star {
+  color: #E4003A;
+}
 .add-task-form .priority-input {
   padding: 10px 0;
+}
+.add-task-form .priority-input .priority-input-title {
+  font-size: 1.2rem;
 }
 .add-task-form .priority-input .priority-btn-div {
   display: flex;
   flex-direction: row;
   -moz-column-gap: 20px;
        column-gap: 20px;
+  padding: 5px 0;
 }
 .add-task-form .priority-input .radio-btn-label {
   display: block;
@@ -822,22 +830,76 @@ html body {
   transition: 0.3s;
 }
 .add-task-form .submit-btn {
-  box-sizing: border-box;
-  border-radius: 3px;
-  border: 1px solid rgb(204, 204, 204);
-  transition: 0.3s;
   float: inline-end;
   width: -moz-max-content;
   width: max-content;
   padding: 10px;
   background: none;
   font-family: Inter;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   text-align: center;
+  font-weight: 600;
+  box-sizing: border-box;
+  border-radius: 3px;
+  border: 1px solid rgb(100, 130, 173);
+  transition: 0.2s;
   cursor: pointer;
 }
-.add-task-form .submit-btn:focus {
-  outline: none;
-  border-color: rgb(127, 161, 195);
-  transition: 0.3s;
+.add-task-form .submit-btn:hover {
+  background-color: rgb(100, 130, 173);
+  color: rgb(245, 237, 237);
+  transition: 0.2s;
+}
+
+.hidden {
+  display: none;
+}
+
+.modal-fade-in {
+  animation: fade-in 0.4s both;
+}
+
+.modal-fade-out {
+  animation: fade-out 0.4s both;
+}
+
+.form-closed {
+  animation: scale-out 0.4s both;
+}
+
+@keyframes scale-into {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes scale-out {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

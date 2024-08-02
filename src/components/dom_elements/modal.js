@@ -1,14 +1,29 @@
+import { format } from "date-fns";
 import { ProjectList } from "../projectlist";
 import { Project } from "../project";
 import { TodoItem } from "../item";
 import modalCloseIcon from "../../media/close.svg";
 import { createElement, priorities } from "../../index";
+import { refreshProjectToDisplay } from "./content";
 
 const content = createElement("div", [], "content", null);
-const modalContainer = createElement("section", ["modal"], null, null);
+const modalContainer = createElement("section", ["modal", "hidden"], null, null);
 
-const clearModal = function() {
+const resetModal = function() {
     modalContainer.innerHTML = "";
+    modalContainer.classList.remove("modal-fade-out");
+}
+
+const closeFormAndModal = function(form) {
+    form.classList.add("form-closed");
+    modalContainer.classList.add("modal-fade-out");
+    modalContainer.classList.remove("modal-fade-in");
+    setTimeout(function() { modalContainer.classList.add("hidden") }, 500);
+}
+
+const renderModal = function() {
+    if (modalContainer.classList.contains("hidden")) modalContainer.classList.remove("hidden");
+    modalContainer.classList.add("modal-fade-in");
 }
 
 const createTextAreaInputElement = function(name, labelContent, rows, cols) {
@@ -33,7 +48,7 @@ const createInputElement = function(name, type, labelContent, isRequired) {
     input.name = name;
     if (isRequired) {
         label.appendChild(createElement("span", ["label-star"], null, "*"));
-        input.required = "";
+        input.setAttribute("required", "");
     }
     inputDiv.appendChild(label);
     inputDiv.appendChild(input);
@@ -57,14 +72,14 @@ const createPriorityLabel = function(name, label) {
 
 const createPriorityButtonsInput = function() {
     const inputDiv = createElement("div", ["priority-input"], null, null);
-    const priorityLabel = createElement("label", null, null, "Priority:");
+    const priorityLabel = createElement("label", ["priority-input-title"], null, "Priority:");
     const btnDiv = createElement("div", ["priority-btn-div"], null, null);
 
-    const lowPriorityInput = createPriorityInput("priority", "low", "Low");
+    const lowPriorityInput = createPriorityInput("task-priority", "low", "Low");
     const lowPriorityLabel = createPriorityLabel("low", "Low");
-    const mediumPriorityInput = createPriorityInput("priority", "medium", "Medium");
+    const mediumPriorityInput = createPriorityInput("task-priority", "medium", "Medium");
     const mediumPriorityLabel = createPriorityLabel("medium", "Medium");
-    const highPriorityInput = createPriorityInput("priority", "high", "High");
+    const highPriorityInput = createPriorityInput("task-priority", "high", "High");
     const highPriorityLabel = createPriorityLabel("high", "High");
 
     inputDiv.appendChild(priorityLabel);
@@ -79,8 +94,30 @@ const createPriorityButtonsInput = function() {
     return inputDiv;
 }
 
+const handleAddTaskSubmit = function(project) {
+    let title = document.querySelector("#task-title");
+    let description = document.querySelector("#task-description");
+    let dueDate = document.querySelector("#task-due-date");
+    let dueDateFormatted = format(dueDate.value, "yyyy-MM-dd");
+    let priority = document.querySelector(`input[name="task-priority"]:checked`);
+    let priorityVal;
+    switch (priority.value) {
+        case("Low"):
+            priorityVal = priorities.low;
+            break;
+        case("Medium"):
+            priorityVal = priorities.medium;
+            break;
+        case("High"):
+            priorityVal = priorities.high;
+            break;
+    }
+    let newItem = new TodoItem(title.value, description.value, dueDateFormatted, priorityVal);
+    project.addItem(newItem);
+}
 
-const createAddTaskForm = function() {
+
+const createAddTaskForm = function(project) {
     const addTaskForm = createElement("form", ["add-task-form"], null, null);
     // Title
     addTaskForm.appendChild(createInputElement("task-title", "text", "Title", true));
@@ -94,28 +131,36 @@ const createAddTaskForm = function() {
     const submitBtn = createElement("button", ["submit-btn"], "task-submit-btn", "Add Task");
     submitBtn.type = "submit";
     addTaskForm.appendChild(submitBtn);
+    addTaskForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        handleAddTaskSubmit(project);
+        closeFormAndModal(addTaskForm);
+        refreshProjectToDisplay(project);
+    });
 
     return addTaskForm;
 }
 
-const renderAddTaskModal = function() {
+const renderAddTaskModal = function(project) {
+    resetModal();
     const addTaskModal = createElement("div", ["add-task-modal"], null, null);
     const addTaskHeader = createElement("div", ["add-task-header"], null, "Add Task");
 
     const modalCloseBtn = createElement("button", null, null, null);
     modalCloseBtn.innerHTML = modalCloseIcon;
+    modalCloseBtn.addEventListener('click', () => closeFormAndModal(addTaskModal) );
     addTaskHeader.appendChild(modalCloseBtn);
 
     addTaskModal.appendChild(addTaskHeader);
 
-    const addTaskForm = createAddTaskForm();
+    const addTaskForm = createAddTaskForm(project);
     addTaskModal.appendChild(addTaskForm);
 
     modalContainer.appendChild(addTaskModal);
+    renderModal();
 }
 
 const Modal = function() {
-    renderAddTaskModal();
     return modalContainer;
 }
 

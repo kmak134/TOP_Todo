@@ -1,7 +1,7 @@
 import { Project } from "../project";
 import { ProjectList } from "../projectlist";
 import { createElement } from "../../index";
-import { changeProjectToDisplay, displayProjectTasks } from "./content";
+import { refreshProjectToDisplay, displayProjectTasks } from "./content";
 
 const sidebar = createElement("div", [], "sidebar", null);
 
@@ -17,7 +17,7 @@ const initializeSidebar = function() {
 
 const createProjectElement = function(project) {
     let projectBtn = createElement("button", ["sidebar-btn"], project.id, project.name);
-    projectBtn.addEventListener('click', () => changeProjectToDisplay(project));
+    projectBtn.addEventListener('click', () => refreshProjectToDisplay(project));
     return projectBtn;
 }
 

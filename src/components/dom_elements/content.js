@@ -4,6 +4,7 @@ import { createElement, priorities } from "../../index";
 import editIcon from "../../media/edit.svg";
 import deleteIcon from "../../media/delete.svg";
 import addIcon from "../../media/add.svg";
+import { renderAddTaskModal } from "./modal";
 
 const content = createElement("div", [], "content", null);
 const contentHeader = createElement("div", ["content-header"], null, null);
@@ -46,7 +47,12 @@ const switchTaskCompleteStatus = function(item, task) {
     task.isComplete = !task.isComplete;
 }
 
-const createTaskElement = function(task) {
+const handleTaskDeleteClick = function(project, task) {
+    project.removeItem(task.id);
+    refreshProjectToDisplay(project);
+}
+
+const createTaskElement = function(project, task) {
     let item  = createElement("div", ["task-item"], null, null);
 
     assignItemPriority(item, task.priority);
@@ -64,6 +70,7 @@ const createTaskElement = function(task) {
     let editBtn = createElement("button", ["item-edit-btn"], null, null);
     editBtn.innerHTML = editIcon;
     let deleteBtn = createElement("button", ["item-delete-btn"], null, null);
+    deleteBtn.addEventListener("click", () => handleTaskDeleteClick(project, task));
     deleteBtn.innerHTML = deleteIcon;
 
     rightPart.appendChild(detailBtn);
@@ -76,17 +83,18 @@ const createTaskElement = function(task) {
     return item;
 }
 
-const buildTasks = function(projectTasks) {
-    let taskHeader = createElement("div", ["tasks-header"], null, `Tasks (${projectTasks.length})`);
+const buildTasks = function(project) {
+    let taskHeader = createElement("div", ["tasks-header"], null, `Tasks (${project.items.length})`);
     let addTaskBtn = createElement("button", ["add-task-btn"], null, null);
     addTaskBtn.innerHTML = addIcon;
+    addTaskBtn.addEventListener('click', () => renderAddTaskModal(project) );
 
     taskHeader.appendChild(addTaskBtn);
     tasksDiv.appendChild(taskHeader);
 
     let taskList = createElement("div", ["task-list"], null, null);
-    for (let task of projectTasks) {
-        let taskElement = createTaskElement(task);
+    for (let task of project.items) {
+        let taskElement = createTaskElement(project, task);
         taskList.appendChild(taskElement);
     }
 
@@ -94,16 +102,16 @@ const buildTasks = function(projectTasks) {
     content.append(tasksDiv);
 }
 
-const changeProjectToDisplay = function(project) {
+const refreshProjectToDisplay = function(project) {
     clearContent();
     buildHeader(project.name);
-    buildTasks(project.items);
+    buildTasks(project);
 }
 
 const initializeContent = function() {
     clearContent();
     buildHeader();
-    buildTasks([]);
+    buildTasks(new Project());
 }
 
 const Content = function() {
@@ -111,5 +119,5 @@ const Content = function() {
     return content;
 }
 
-export { Content, changeProjectToDisplay }
+export { Content, refreshProjectToDisplay }
     
