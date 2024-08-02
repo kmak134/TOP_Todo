@@ -17,6 +17,11 @@ class Project {
         return this.items.find(item => item._title = itemTitle);
     }
 
+    editItem(itemId, editedItem) {
+        let taskIndex = this.items.findIndex(item => item.id == itemId);
+        this.items[taskIndex] = editedItem;
+    }
+
     get name() {
         return this._name;
     }

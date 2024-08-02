@@ -4,7 +4,7 @@ import { createElement, priorities } from "../../index";
 import editIcon from "../../media/edit.svg";
 import deleteIcon from "../../media/delete.svg";
 import addIcon from "../../media/add.svg";
-import { renderAddTaskModal } from "./modal";
+import { renderAddTaskModal, renderEditTaskModal } from "./modal";
 
 const content = createElement("div", [], "content", null);
 const contentHeader = createElement("div", ["content-header"], null, null);
@@ -47,7 +47,7 @@ const switchTaskCompleteStatus = function(item, task) {
     task.isComplete = !task.isComplete;
 }
 
-const handleTaskDeleteClick = function(project, task) {
+const handleTaskDeleteClick = function(task, project) {
     project.removeItem(task.id);
     refreshProjectToDisplay(project);
 }
@@ -66,13 +66,16 @@ const createTaskElement = function(project, task) {
     leftPart.appendChild(taskTitle);
 
     let rightPart = createElement("div", ["item-right-part"], null, null);
+    let dueDate = createElement("div", ["item-due-date"], null, task.dueDate);
     let detailBtn = createElement("button", ["item-detail-btn"], null, "DETAILS");
     let editBtn = createElement("button", ["item-edit-btn"], null, null);
+    editBtn.addEventListener("click", () => renderEditTaskModal(task, project));
     editBtn.innerHTML = editIcon;
     let deleteBtn = createElement("button", ["item-delete-btn"], null, null);
-    deleteBtn.addEventListener("click", () => handleTaskDeleteClick(project, task));
+    deleteBtn.addEventListener("click", () => handleTaskDeleteClick(task, project));
     deleteBtn.innerHTML = deleteIcon;
 
+    rightPart.appendChild(dueDate);
     rightPart.appendChild(detailBtn);
     rightPart.appendChild(editBtn);
     rightPart.appendChild(deleteBtn);

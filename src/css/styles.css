@@ -161,6 +161,11 @@ html body {
        column-gap: 20px;
 }
 
+.task-item .item-right-part .item-due-date {
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+
 .task-item .item-right-part .item-detail-btn {
   font-size: 0.9rem;
   color: rgb(117, 134, 148);
@@ -428,6 +433,10 @@ html body {
   -moz-column-gap: 20px;
        column-gap: 20px;
 }
+.task-item .item-right-part .item-due-date {
+  font-weight: 500;
+  font-size: 0.8rem;
+}
 .task-item .item-right-part .item-detail-btn {
   font-size: 0.9rem;
   color: rgb(117, 134, 148);
@@ -604,6 +613,11 @@ html body {
        column-gap: 20px;
 }
 
+.task-item .item-right-part .item-due-date {
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+
 .task-item .item-right-part .item-detail-btn {
   font-size: 0.9rem;
   color: rgb(117, 134, 148);
@@ -668,7 +682,7 @@ html body {
   margin: 0 auto;
 }
 
-.add-task-modal {
+.add-task-modal, .edit-task-modal {
   position: relative;
   max-width: 500px;
   margin: 10% auto;
@@ -678,7 +692,7 @@ html body {
   font-family: Inter;
   animation: scale-into 0.4s both;
 }
-.add-task-modal .add-task-header {
+.add-task-modal .add-task-header, .edit-task-modal .add-task-header, .edit-task-modal .edit-task-header {
   background-color: rgb(100, 130, 173);
   padding: 15px 30px;
   font-size: 1.5rem;
@@ -687,7 +701,7 @@ html body {
   flex-direction: row;
   justify-content: space-between;
 }
-.add-task-modal .add-task-header button {
+.add-task-modal .add-task-header button, .edit-task-modal .add-task-header button, .edit-task-modal .edit-task-header button {
   width: 1.5rem;
   height: 1.5rem;
   background-size: cover;
@@ -698,21 +712,21 @@ html body {
   background-color: rgb(100, 130, 173);
 }
 
-.add-task-form {
+.add-task-form, .edit-task-form {
   background-color: rgb(245, 237, 237);
   border-radius: 5px;
   padding: 15px;
   overflow: hidden;
 }
-.add-task-form .form-input {
+.add-task-form .form-input, .edit-task-form .form-input {
   display: flex;
   flex-direction: column;
   padding: 10px 0;
 }
-.add-task-form .form-input label {
+.add-task-form .form-input label, .edit-task-form .form-input label {
   font-size: 1.2rem;
 }
-.add-task-form .form-input .input-text {
+.add-task-form .form-input .input-text, .edit-task-form .form-input .input-text {
   font-size: 1.1rem;
   padding: 10px;
   box-sizing: border-box;
@@ -720,12 +734,12 @@ html body {
   border: 1px solid rgb(204, 204, 204);
   transition: 0.3s;
 }
-.add-task-form .form-input .input-text:focus {
+.add-task-form .form-input .input-text:focus, .edit-task-form .form-input .input-text:focus {
   outline: none;
   border-color: rgb(127, 161, 195);
   transition: 0.3s;
 }
-.add-task-form .form-input .input-textarea {
+.add-task-form .form-input .input-textarea, .edit-task-form .form-input .input-textarea {
   font-size: 1.1rem;
   padding: 10px;
   box-sizing: border-box;
@@ -735,12 +749,12 @@ html body {
   resize: vertical;
   max-height: 250px;
 }
-.add-task-form .form-input .input-textarea:focus {
+.add-task-form .form-input .input-textarea:focus, .edit-task-form .form-input .input-textarea:focus {
   outline: none;
   border-color: rgb(127, 161, 195);
   transition: 0.3s;
 }
-.add-task-form .form-input .input-date {
+.add-task-form .form-input .input-date, .edit-task-form .form-input .input-date {
   font-size: 1.1rem;
   font-family: Roboto;
   padding: 10px;
@@ -749,28 +763,28 @@ html body {
   border: 1px solid rgb(204, 204, 204);
   transition: 0.3s;
 }
-.add-task-form .form-input .input-date:focus {
+.add-task-form .form-input .input-date:focus, .edit-task-form .form-input .input-date:focus {
   outline: none;
   border-color: rgb(127, 161, 195);
   transition: 0.3s;
 }
-.add-task-form .form-input .label-star {
+.add-task-form .form-input .label-star, .edit-task-form .form-input .label-star {
   color: #E4003A;
 }
-.add-task-form .priority-input {
+.add-task-form .priority-input, .edit-task-form .priority-input {
   padding: 10px 0;
 }
-.add-task-form .priority-input .priority-input-title {
+.add-task-form .priority-input .priority-input-title, .edit-task-form .priority-input .priority-input-title {
   font-size: 1.2rem;
 }
-.add-task-form .priority-input .priority-btn-div {
+.add-task-form .priority-input .priority-btn-div, .edit-task-form .priority-input .priority-btn-div {
   display: flex;
   flex-direction: row;
   -moz-column-gap: 20px;
        column-gap: 20px;
   padding: 5px 0;
 }
-.add-task-form .priority-input .radio-btn-label {
+.add-task-form .priority-input .radio-btn-label, .edit-task-form .priority-input .radio-btn-label {
   display: block;
   background: none;
   border-radius: 5px;
@@ -782,54 +796,54 @@ html body {
   text-align: center;
   z-index: 90;
 }
-.add-task-form .priority-input #low.radio-btn-label {
+.add-task-form .priority-input #low.radio-btn-label, .edit-task-form .priority-input #low.radio-btn-label {
   color: #508D4E;
   border: 2px solid #508D4E;
 }
-.add-task-form .priority-input #low.radio-btn-label:hover {
+.add-task-form .priority-input #low.radio-btn-label:hover, .edit-task-form .priority-input #low.radio-btn-label:hover {
   color: rgb(245, 237, 237);
   background-color: #508D4E;
 }
-.add-task-form .priority-input #medium.radio-btn-label {
+.add-task-form .priority-input #medium.radio-btn-label, .edit-task-form .priority-input #medium.radio-btn-label {
   color: rgb(255, 168, 35);
   border: 2px solid rgb(255, 168, 35);
 }
-.add-task-form .priority-input #medium.radio-btn-label:hover {
+.add-task-form .priority-input #medium.radio-btn-label:hover, .edit-task-form .priority-input #medium.radio-btn-label:hover {
   color: rgb(245, 237, 237);
   background-color: rgb(255, 168, 35);
 }
-.add-task-form .priority-input #high.radio-btn-label {
+.add-task-form .priority-input #high.radio-btn-label, .edit-task-form .priority-input #high.radio-btn-label {
   color: #E4003A;
   border: 2px solid #E4003A;
 }
-.add-task-form .priority-input #high.radio-btn-label:hover {
+.add-task-form .priority-input #high.radio-btn-label:hover, .edit-task-form .priority-input #high.radio-btn-label:hover {
   color: rgb(245, 237, 237);
   background-color: #E4003A;
 }
-.add-task-form .priority-input .radio-btn {
+.add-task-form .priority-input .radio-btn, .edit-task-form .priority-input .radio-btn {
   position: fixed;
   width: 0;
   opacity: 0;
 }
-.add-task-form .priority-input .radio-btn-label:hover {
+.add-task-form .priority-input .radio-btn-label:hover, .edit-task-form .priority-input .radio-btn-label:hover {
   transition: 0.3s;
 }
-.add-task-form .priority-input .radio-btn:checked + #low.radio-btn-label {
+.add-task-form .priority-input .radio-btn:checked + #low.radio-btn-label, .edit-task-form .priority-input .radio-btn:checked + #low.radio-btn-label {
   color: rgb(245, 237, 237);
   background-color: #508D4E;
   transition: 0.3s;
 }
-.add-task-form .priority-input .radio-btn:checked + #medium.radio-btn-label {
+.add-task-form .priority-input .radio-btn:checked + #medium.radio-btn-label, .edit-task-form .priority-input .radio-btn:checked + #medium.radio-btn-label {
   color: rgb(245, 237, 237);
   background-color: rgb(255, 168, 35);
   transition: 0.3s;
 }
-.add-task-form .priority-input .radio-btn:checked + #high.radio-btn-label {
+.add-task-form .priority-input .radio-btn:checked + #high.radio-btn-label, .edit-task-form .priority-input .radio-btn:checked + #high.radio-btn-label {
   color: rgb(245, 237, 237);
   background-color: #E4003A;
   transition: 0.3s;
 }
-.add-task-form .submit-btn {
+.add-task-form .submit-btn, .edit-task-form .submit-btn {
   float: inline-end;
   width: -moz-max-content;
   width: max-content;
@@ -845,7 +859,7 @@ html body {
   transition: 0.2s;
   cursor: pointer;
 }
-.add-task-form .submit-btn:hover {
+.add-task-form .submit-btn:hover, .edit-task-form .submit-btn:hover {
   background-color: rgb(100, 130, 173);
   color: rgb(245, 237, 237);
   transition: 0.2s;

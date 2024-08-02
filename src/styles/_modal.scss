@@ -218,6 +218,18 @@ $high-priority-color: #E4003A;
     }
 }
 
+.edit-task-modal {
+    @extend .add-task-modal;
+
+    .edit-task-header {
+        @extend .add-task-header;
+    }
+}
+
+.edit-task-form {
+    @extend .add-task-form;
+}
+
 .hidden {
     display: none;
 }
