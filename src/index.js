@@ -5,7 +5,7 @@ import { Project } from "./components/project";
 import { ProjectList } from "./components/projectlist";
 import { Content } from "./components/dom_elements/content";
 import { Modal, renderAddTaskModal } from "./components/dom_elements/modal";
-import Sidebar from "./components/dom_elements/sidebar";
+import { Sidebar } from "./components/dom_elements/sidebar";
 
 const app = document.querySelector("#todo-container");
 const sidebar = createElement("div", [], "sidebar", null);
@@ -54,7 +54,7 @@ function formatDateForUser(dueDate) {
 }
 
 function intiializeApp() {
-    app.appendChild(Sidebar(projectList.projects));
+    app.appendChild(Sidebar(projectList));
     app.appendChild(Content());
     app.appendChild(Modal());
 }

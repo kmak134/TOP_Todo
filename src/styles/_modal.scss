@@ -238,6 +238,27 @@ $high-priority-color: #E4003A;
     }
 }
 
+.add-project-modal {
+    @extend .add-task-modal;
+
+    .add-project-header {
+        @extend .add-task-header;
+    }
+}
+
+.add-project-form {
+    @extend .add-task-form;
+    padding: 25px;
+
+    .form-input {
+        padding: 20px 0;
+        
+        label {
+            padding-bottom: 5px;
+        }
+    }
+}
+
 .details-content-container {
     background-color: $modal-content-color;
     border-radius: 5px;

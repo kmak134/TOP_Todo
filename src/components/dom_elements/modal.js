@@ -5,6 +5,7 @@ import { TodoItem } from "../item";
 import modalCloseIcon from "../../media/close.svg";
 import { createElement, formatDateForUser, priorities } from "../../index";
 import { refreshProjectToDisplay } from "./content";
+import { refreshProjects } from "./sidebar";
 
 const content = createElement("div", [], "content", null);
 const modalContainer = createElement("section", ["modal", "hidden"], null, null);
@@ -168,6 +169,12 @@ const handleEditTaskSubmit = function(task, project) {
     project.editItem(task.id, editedItem);
 }
 
+const handleAddProjectSubmit = function(projectList) {
+    let projectName = document.querySelector("#project-name");
+    let newProject = new Project(projectName.value);
+    projectList.addProject(newProject);
+}
+
 
 const createAddTaskForm = function(project) {
     const addTaskForm = createElement("form", ["add-task-form"], null, null);
@@ -215,6 +222,23 @@ const createEditTaskForm = function(task, project) {
     });
 
     return editTaskForm;
+}
+
+const createAddProjectForm = function(projectList) {
+    const addProjectForm = createElement("form", ["add-project-form"], null, null);
+    addProjectForm.appendChild(createInputElement("project-name", "text", "Name", true));
+
+    const submitBtn = createElement("button", ["submit-btn"], "project-submit-btn", "Add Project");
+    submitBtn.type = "submit";
+    addProjectForm.appendChild(submitBtn);
+    addProjectForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        handleAddProjectSubmit(projectList);
+        closeFormAndModal(addProjectForm);
+        refreshProjects(projectList);
+    });
+
+    return addProjectForm;
 }
 
 const createDetailsContent = function(task, project, modal) {
@@ -304,6 +328,25 @@ const renderEditTaskModal = function(task, project) {
     renderModal();
 }
 
+const renderAddProjectModal = function(projectList) {
+    resetModal();
+    const addProjectModal = createElement("div", ["add-project-modal"], null, null);
+    const addProjectHeader = createElement("div", ["add-project-header"], null, "Add Project");
+
+    const modalCloseBtn = createElement("button", null, null, null);
+    modalCloseBtn.innerHTML = modalCloseIcon;
+    modalCloseBtn.addEventListener('click', () => closeFormAndModal(addProjectModal) );
+    addProjectHeader.appendChild(modalCloseBtn);
+
+    addProjectModal.appendChild(addProjectHeader);
+
+    const addProjectForm = createAddProjectForm(projectList);
+    addProjectModal.appendChild(addProjectForm);
+
+    modalContainer.appendChild(addProjectModal);
+    renderModal();
+}
+
 const renderDetailsModal = function(task, project) {
     resetModal();
     const detailsModal = createElement("div", ["details-modal"], null, null);
@@ -327,4 +370,4 @@ const Modal = function() {
     return modalContainer;
 }
 
-export { Modal, renderAddTaskModal, renderEditTaskModal, renderDetailsModal }
+export { Modal, renderAddTaskModal, renderEditTaskModal, renderDetailsModal, renderAddProjectModal }

@@ -17,7 +17,7 @@ $btn-hover-border-color: rgb(64, 93, 114);
     padding: 40px 0;
     color: $sidebar-font-color;
 
-    button {
+    .sidebar-btn {
         font-size: 1.2rem;
         background-color: $content-background-color;
         border: 3px solid $sidebar-color;
@@ -51,5 +51,15 @@ $btn-hover-border-color: rgb(64, 93, 114);
         margin: 10px 0 20px 0;
         border-bottom: 2px solid $sidebar-font-color;
         padding: 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        .add-project-btn {
+            @include content.item-icon-btn;
+            background-color: $sidebar-color;
+            fill: $sidebar-font-color;
+        }
     }
 }
