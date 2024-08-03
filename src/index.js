@@ -45,6 +45,14 @@ function createElement(type, classes, id, content) {
     return element
 }
 
+// method from https://stackoverflow.com/questions/48172772/time-zone-issue-involving-date-fns-format
+function formatDateForUser(dueDate) {
+    let dt = new Date(dueDate);
+    let dtDate = new Date(dt.valueOf() + dt.getTimezoneOffset() * 60 * 1000);
+    let formattedDate = format(dtDate, "MMM d, yyyy");
+    return formattedDate;
+}
+
 function intiializeApp() {
     app.appendChild(Sidebar(projectList.projects));
     app.appendChild(Content());
@@ -53,5 +61,5 @@ function intiializeApp() {
 
 intiializeApp();
 
-export { createElement, priorities }
+export { createElement, formatDateForUser, priorities }
 

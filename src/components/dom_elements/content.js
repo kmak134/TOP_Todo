@@ -1,10 +1,10 @@
 import { Project } from "../project";
 import { TodoItem } from "../item";
-import { createElement, priorities } from "../../index";
+import { createElement, formatDateForUser, priorities } from "../../index";
 import editIcon from "../../media/edit.svg";
 import deleteIcon from "../../media/delete.svg";
 import addIcon from "../../media/add.svg";
-import { renderAddTaskModal, renderEditTaskModal } from "./modal";
+import { renderAddTaskModal, renderEditTaskModal, renderDetailsModal } from "./modal";
 
 const content = createElement("div", [], "content", null);
 const contentHeader = createElement("div", ["content-header"], null, null);
@@ -66,11 +66,14 @@ const createTaskElement = function(project, task) {
     leftPart.appendChild(taskTitle);
 
     let rightPart = createElement("div", ["item-right-part"], null, null);
-    let dueDate = createElement("div", ["item-due-date"], null, task.dueDate);
+    let dueDate = createElement("div", ["item-due-date"], null, formatDateForUser(task.dueDate));
     let detailBtn = createElement("button", ["item-detail-btn"], null, "DETAILS");
+    detailBtn.addEventListener("click", () => renderDetailsModal(task, project));
+
     let editBtn = createElement("button", ["item-edit-btn"], null, null);
     editBtn.addEventListener("click", () => renderEditTaskModal(task, project));
     editBtn.innerHTML = editIcon;
+
     let deleteBtn = createElement("button", ["item-delete-btn"], null, null);
     deleteBtn.addEventListener("click", () => handleTaskDeleteClick(task, project));
     deleteBtn.innerHTML = deleteIcon;

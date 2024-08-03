@@ -682,7 +682,7 @@ html body {
   margin: 0 auto;
 }
 
-.add-task-modal, .edit-task-modal {
+.add-task-modal, .details-modal, .edit-task-modal {
   position: relative;
   max-width: 500px;
   margin: 10% auto;
@@ -692,7 +692,7 @@ html body {
   font-family: Inter;
   animation: scale-into 0.4s both;
 }
-.add-task-modal .add-task-header, .edit-task-modal .add-task-header, .edit-task-modal .edit-task-header {
+.add-task-modal .add-task-header, .details-modal .add-task-header, .details-modal .details-header, .edit-task-modal .add-task-header, .edit-task-modal .edit-task-header {
   background-color: rgb(100, 130, 173);
   padding: 15px 30px;
   font-size: 1.5rem;
@@ -701,7 +701,7 @@ html body {
   flex-direction: row;
   justify-content: space-between;
 }
-.add-task-modal .add-task-header button, .edit-task-modal .add-task-header button, .edit-task-modal .edit-task-header button {
+.add-task-modal .add-task-header button, .details-modal .add-task-header button, .details-modal .details-header button, .edit-task-modal .add-task-header button, .edit-task-modal .edit-task-header button {
   width: 1.5rem;
   height: 1.5rem;
   background-size: cover;
@@ -843,7 +843,8 @@ html body {
   background-color: #E4003A;
   transition: 0.3s;
 }
-.add-task-form .submit-btn, .edit-task-form .submit-btn {
+
+.submit-btn, .details-content-container .details-close-btn {
   float: inline-end;
   width: -moz-max-content;
   width: max-content;
@@ -859,10 +860,47 @@ html body {
   transition: 0.2s;
   cursor: pointer;
 }
-.add-task-form .submit-btn:hover, .edit-task-form .submit-btn:hover {
+.submit-btn:hover, .details-content-container .details-close-btn:hover {
   background-color: rgb(100, 130, 173);
   color: rgb(245, 237, 237);
   transition: 0.2s;
+}
+
+.details-content-container {
+  background-color: rgb(245, 237, 237);
+  border-radius: 5px;
+  padding: 0px 30px 30px 30px;
+  overflow: hidden;
+}
+.details-content-container .details-content-row {
+  display: flex;
+  flex-direction: row;
+  padding: 25px 0;
+  border-bottom: 1px solid rgb(100, 130, 173);
+}
+.details-content-container .details-label {
+  width: 150px;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.details-content-container .details-content {
+  max-width: 300px;
+  overflow: auto;
+}
+.details-content-container .details-priority-low {
+  color: #508D4E;
+  font-weight: 600;
+}
+.details-content-container .details-priority-medium {
+  color: rgb(255, 168, 35);
+  font-weight: 600;
+}
+.details-content-container .details-priority-high {
+  color: #E4003A;
+  font-weight: 600;
+}
+.details-content-container .details-close-btn {
+  margin-top: 25px;
 }
 
 .hidden {

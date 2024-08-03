@@ -193,28 +193,28 @@ $high-priority-color: #E4003A;
             transition: 0.3s;
         }
     }
+}
 
-    .submit-btn {
-        float: inline-end;
-        width: max-content;
-        padding: 10px;
-        background: none;
- 
-        font-family: $font;
-        font-size: 1.2rem;
-        text-align: center;
-        font-weight: 600;
-        box-sizing: border-box;
-        border-radius: 3px;
-        border: 1px solid $modal-header-color;
+.submit-btn {
+    float: inline-end;
+    width: max-content;
+    padding: 10px;
+    background: none;
+
+    font-family: $font;
+    font-size: 1.2rem;
+    text-align: center;
+    font-weight: 600;
+    box-sizing: border-box;
+    border-radius: 3px;
+    border: 1px solid $modal-header-color;
+    transition: 0.2s;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $modal-header-color;
+        color: $modal-content-color;
         transition: 0.2s;
-        cursor: pointer;
-
-        &:hover {
-            background-color: $modal-header-color;
-            color: $modal-content-color;
-            transition: 0.2s;
-        }
     }
 }
 
@@ -228,6 +228,59 @@ $high-priority-color: #E4003A;
 
 .edit-task-form {
     @extend .add-task-form;
+}
+
+.details-modal {
+    @extend .add-task-modal;
+
+    .details-header {
+        @extend .add-task-header;
+    }
+}
+
+.details-content-container {
+    background-color: $modal-content-color;
+    border-radius: 5px;
+    padding: 0px 30px 30px 30px;
+    overflow: hidden;
+
+    .details-content-row {
+        display: flex;
+        flex-direction: row;
+        padding: 25px 0;
+        border-bottom: 1px solid $modal-header-color;
+    }
+
+    .details-label {
+        width: 150px;
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+
+    .details-content {
+        max-width: 300px;
+        overflow: auto;
+    }
+
+    .details-priority-low {
+        color: $low-priority-color;
+        font-weight: 600;
+    }
+
+    .details-priority-medium {
+        color: $medium-priority-color;
+        font-weight: 600;
+    }
+
+    .details-priority-high {
+        color: $high-priority-color;
+        font-weight: 600;
+    }
+
+    .details-close-btn {
+        @extend .submit-btn;
+        margin-top: 25px;
+    }
 }
 
 .hidden {

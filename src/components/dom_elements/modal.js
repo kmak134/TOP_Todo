@@ -3,7 +3,7 @@ import { ProjectList } from "../projectlist";
 import { Project } from "../project";
 import { TodoItem } from "../item";
 import modalCloseIcon from "../../media/close.svg";
-import { createElement, priorities } from "../../index";
+import { createElement, formatDateForUser, priorities } from "../../index";
 import { refreshProjectToDisplay } from "./content";
 
 const content = createElement("div", [], "content", null);
@@ -115,32 +115,43 @@ const createPriorityButtonsInput = function(isEdit = false, valToEdit = null) {
 }
 
 // method from https://stackoverflow.com/questions/48172772/time-zone-issue-involving-date-fns-format
-const formatDateForTask = function(dueDate) {
+const formatDateWithTimezone = function(dueDate) {
     let dt = new Date(dueDate.value);
     let dtDate = new Date(dt.valueOf() + dt.getTimezoneOffset() * 60 * 1000);
     let dueDateFormatted = format(dtDate, "yyyy-MM-dd");
     return dueDateFormatted;
 }
 
+const convertPriorityEnumToWord = function(priorityEnum) {
+    switch (priorityEnum) {
+        case (priorities.low):
+            return "Low";
+        case (priorities.medium):
+            return "Medium";
+        case (priorities.high):
+            return "High";
+    }
+}
+
+const getPriorityEnumVal = function(priorityVal) {
+    switch (priorityVal) {
+        case("Low"):
+            return priorities.low;
+        case("Medium"):
+            return priorities.medium;
+        case("High"):
+            return priorities.high;
+    }
+}
+
 const handleAddTaskSubmit = function(project) {
     let title = document.querySelector("#task-title");
     let description = document.querySelector("#task-description");
     let dueDate = document.querySelector("#task-due-date");
-    let dueDateFormatted = formatDateForTask(dueDate);
+    let dueDateFormatted = formatDateWithTimezone(dueDate);
     
     let priority = document.querySelector(`input[name="task-priority"]:checked`);
-    let priorityVal;
-    switch (priority.value) {
-        case("Low"):
-            priorityVal = priorities.low;
-            break;
-        case("Medium"):
-            priorityVal = priorities.medium;
-            break;
-        case("High"):
-            priorityVal = priorities.high;
-            break;
-    }
+    let priorityVal = getPriorityEnumVal(priority.value);
     let newItem = new TodoItem(title.value, description.value, dueDateFormatted, priorityVal);
     project.addItem(newItem);
 }
@@ -149,20 +160,10 @@ const handleEditTaskSubmit = function(task, project) {
     let title = document.querySelector("#task-title");
     let description = document.querySelector("#task-description");
     let dueDate = document.querySelector("#task-due-date");
-    let dueDateFormatted = formatDateForTask(dueDate);
+    let dueDateFormatted = formatDateWithTimezone(dueDate);
     let priority = document.querySelector(`input[name="task-priority"]:checked`);
-    let priorityVal;
-    switch (priority.value) {
-        case("Low"):
-            priorityVal = priorities.low;
-            break;
-        case("Medium"):
-            priorityVal = priorities.medium;
-            break;
-        case("High"):
-            priorityVal = priorities.high;
-            break;
-    }
+    let priorityVal = getPriorityEnumVal(priority.value);
+
     let editedItem = new TodoItem(title.value, description.value, dueDateFormatted, priorityVal);
     project.editItem(task.id, editedItem);
 }
@@ -216,6 +217,55 @@ const createEditTaskForm = function(task, project) {
     return editTaskForm;
 }
 
+const createDetailsContent = function(task, project, modal) {
+    const detailsDiv = createElement("div", ["details-content-container"], null, null);
+
+    const titleRow = createElement("div", ["details-content-row"], null, null);
+    const titleLabel = createElement("div", ["details-label"], null, "Title:");
+    const titleContent = createElement("div", ["details-content"], null, task.title);
+    titleRow.appendChild(titleLabel);
+    titleRow.appendChild(titleContent);
+
+    const descriptionRow = createElement("div", ["details-content-row"], null, null);
+    const descriptionLabel = createElement("div", ["details-label"], null, "Description:");
+    const descriptionContent = createElement("div", ["details-content"], null, task.description);
+    descriptionRow.appendChild(descriptionLabel);
+    descriptionRow.appendChild(descriptionContent);
+
+    const dueDateRow = createElement("div", ["details-content-row"], null, null);
+    const dueDateLabel = createElement("div", ["details-label"], null, "Due Date:");
+    const dueDateContent = createElement("div", ["details-content"], null, formatDateForUser(task.dueDate));
+    dueDateRow.appendChild(dueDateLabel);
+    dueDateRow.appendChild(dueDateContent);
+
+    const priorityRow = createElement("div", ["details-content-row"], null, null);
+    const priorityLabel = createElement("div", ["details-label"], null, "Priority:");
+    const priorityContent = createElement("div", ["details-content"], null, convertPriorityEnumToWord(task.priority));
+    if (task.priority == priorities.low) priorityContent.classList.add("details-priority-low");
+    else if (task.priority == priorities.medium) priorityContent.classList.add("details-priority-medium");
+    else if (task.priority == priorities.high) priorityContent.classList.add("details-priority-high");
+    priorityRow.appendChild(priorityLabel);
+    priorityRow.appendChild(priorityContent);
+
+    const projectRow = createElement("div", ["details-content-row"], null, null);
+    const projectLabel = createElement("div", ["details-label"], null, "Project:");
+    const projectContent = createElement("div", ["details-content"], null, project.name);
+    projectRow.appendChild(projectLabel);
+    projectRow.appendChild(projectContent);
+
+    const closeBtn = createElement("button", ["details-close-btn"], null, "Close");
+    closeBtn.addEventListener('click', () => { closeFormAndModal(modal )});
+
+    detailsDiv.appendChild(titleRow);
+    detailsDiv.appendChild(descriptionRow);
+    detailsDiv.appendChild(dueDateRow);
+    detailsDiv.appendChild(priorityRow);
+    detailsDiv.appendChild(projectRow);
+    detailsDiv.appendChild(closeBtn);
+
+    return detailsDiv;
+}
+
 const renderAddTaskModal = function(project) {
     resetModal();
     const addTaskModal = createElement("div", ["add-task-modal"], null, null);
@@ -254,8 +304,27 @@ const renderEditTaskModal = function(task, project) {
     renderModal();
 }
 
+const renderDetailsModal = function(task, project) {
+    resetModal();
+    const detailsModal = createElement("div", ["details-modal"], null, null);
+    const detailsHeader = createElement("div", ["details-header"], null, "Details");
+
+    const modalCloseBtn = createElement("button", null, null, null);
+    modalCloseBtn.innerHTML = modalCloseIcon;
+    modalCloseBtn.addEventListener('click', () => closeFormAndModal(detailsModal) );
+    detailsHeader.appendChild(modalCloseBtn);
+
+    detailsModal.appendChild(detailsHeader);
+
+    const detailsContent = createDetailsContent(task, project, detailsModal);
+    detailsModal.appendChild(detailsContent);
+
+    modalContainer.appendChild(detailsModal);
+    renderModal();
+}
+
 const Modal = function() {
     return modalContainer;
 }
 
-export { Modal, renderAddTaskModal, renderEditTaskModal }
+export { Modal, renderAddTaskModal, renderEditTaskModal, renderDetailsModal }
