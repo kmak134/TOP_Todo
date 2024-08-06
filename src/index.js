@@ -17,9 +17,11 @@ const project2 = new Project("Chores");
 const item1 = new TodoItem("Laundry", "Wash pants", format(new Date(2024, 7, 29), "yyyy-MM-dd"), 3);
 const item2 = new TodoItem("HSR dailies",null, format(new Date(2024, 7, 28), "yyyy-MM-dd"), 1);
 const item3 = new TodoItem("Homework", "Math", format(new Date(2024, 7, 28), "yyyy-MM-dd"), 2);
+const item4 = new TodoItem("Today Item", "ZZZ", format(new Date(2024, 7, 5), "yyyy-MM-dd"), 2)
 project1.addItem(item3);
 project2.addItem(item1);
 project2.addItem(item2);
+project1.addItem(item4);
 projectList.addProject(project1);
 projectList.addProject(project2);
 
@@ -46,9 +48,14 @@ function createElement(type, classes, id, content) {
 }
 
 // method from https://stackoverflow.com/questions/48172772/time-zone-issue-involving-date-fns-format
-function formatDateForUser(dueDate) {
+function formatDateWithTimezone(dueDate) {
     let dt = new Date(dueDate);
     let dtDate = new Date(dt.valueOf() + dt.getTimezoneOffset() * 60 * 1000);
+    return dtDate;
+}
+
+function formatDateForUser(dueDate) {
+    let dtDate = formatDateWithTimezone(dueDate);
     let formattedDate = format(dtDate, "MMM d, yyyy");
     return formattedDate;
 }
@@ -61,5 +68,5 @@ function intiializeApp() {
 
 intiializeApp();
 
-export { createElement, formatDateForUser, priorities, projectList }
+export { createElement, formatDateForUser, formatDateWithTimezone, priorities, projectList }
 

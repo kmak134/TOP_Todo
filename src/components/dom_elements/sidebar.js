@@ -1,7 +1,7 @@
 import { Project } from "../project";
 import { ProjectList } from "../projectlist";
 import { createElement } from "../../index";
-import { refreshProjectToDisplay, buildHomeContent } from "./content";
+import { refreshProjectToDisplay, buildHomeContent, buildTodayContent, buildThisWeekContent } from "./content";
 import { renderAddProjectModal } from "./modal";
 import addIcon from "../../media/add.svg";
 import deleteIcon from "../../media/delete.svg";
@@ -14,6 +14,8 @@ const initializeSidebar = function() {
     const todayBtn = createElement("button", ["sidebar-btn"], "today-btn", "Today");
     const weekBtn = createElement("button", ["sidebar-btn"], "week-btn", "This Week");
     homeBtn.addEventListener("click", () => { buildHomeContent() });
+    todayBtn.addEventListener("click", () => { buildTodayContent() });
+    weekBtn.addEventListener("click", () => { buildThisWeekContent() });
 
     sidebar.appendChild(homeBtn);
     sidebar.appendChild(todayBtn);

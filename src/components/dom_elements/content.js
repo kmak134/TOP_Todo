@@ -1,7 +1,7 @@
-import { compareAsc } from "date-fns";
+import { compareAsc, isToday, isThisWeek } from "date-fns";
 import { Project } from "../project";
 import { TodoItem } from "../item";
-import { createElement, formatDateForUser, priorities, projectList } from "../../index";
+import { createElement, formatDateForUser, formatDateWithTimezone, priorities, projectList } from "../../index";
 import editIcon from "../../media/edit.svg";
 import deleteIcon from "../../media/delete.svg";
 import addIcon from "../../media/add.svg";
@@ -135,6 +135,54 @@ const buildHomeContent = function() {
     content.append(tasksDiv);
 }
 
+const buildTodayContent = function() {
+    clearContent();
+    buildHeader("Today");
+
+    let taskListDiv = createElement("div", ["task-list"], null, null);
+    let taskCount = 0;
+    for (let project of projectList.projects) {
+        for (let task of project.items) {
+            let dtDate = formatDateWithTimezone(task.dueDate);
+            if (isToday(dtDate)) {
+                taskCount++;
+                let taskElement = createTaskElement(project, task);
+                taskListDiv.appendChild(taskElement);
+            }
+        }
+    }
+
+    let todayHeader = createElement("div", ["tasks-header"], null, `Tasks (${taskCount})`);
+
+    tasksDiv.appendChild(todayHeader);
+    tasksDiv.append(taskListDiv);
+    content.append(tasksDiv);
+}
+
+const buildThisWeekContent = function() {
+    clearContent();
+    buildHeader("This Week");
+
+    let taskListDiv = createElement("div", ["task-list"], null, null);
+    let taskCount = 0;
+    for (let project of projectList.projects) {
+        for (let task of project.items) {
+            let dtDate = formatDateWithTimezone(task.dueDate);
+            if (isThisWeek(dtDate)) {
+                taskCount++;
+                let taskElement = createTaskElement(project, task);
+                taskListDiv.appendChild(taskElement);
+            }
+        }
+    }
+
+    let thisWeekHeader = createElement("div", ["tasks-header"], null, `Tasks (${taskCount})`);
+
+    tasksDiv.appendChild(thisWeekHeader);
+    tasksDiv.append(taskListDiv);
+    content.append(tasksDiv);
+}
+
 const refreshProjectToDisplay = function(project) {
     clearContent();
     buildHeader(project.name);
@@ -150,5 +198,5 @@ const Content = function() {
     return content;
 }
 
-export { Content, refreshProjectToDisplay, buildHomeContent }
+export { Content, refreshProjectToDisplay, buildHomeContent, buildTodayContent, buildThisWeekContent }
     

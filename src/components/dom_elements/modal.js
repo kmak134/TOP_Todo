@@ -3,7 +3,7 @@ import { ProjectList } from "../projectlist";
 import { Project } from "../project";
 import { TodoItem } from "../item";
 import modalCloseIcon from "../../media/close.svg";
-import { createElement, formatDateForUser, priorities } from "../../index";
+import { createElement, formatDateForUser, formatDateWithTimezone, priorities } from "../../index";
 import { refreshProjectToDisplay } from "./content";
 import { refreshProjects } from "./sidebar";
 
@@ -115,10 +115,8 @@ const createPriorityButtonsInput = function(isEdit = false, valToEdit = null) {
     return inputDiv;
 }
 
-// method from https://stackoverflow.com/questions/48172772/time-zone-issue-involving-date-fns-format
-const formatDateWithTimezone = function(dueDate) {
-    let dt = new Date(dueDate.value);
-    let dtDate = new Date(dt.valueOf() + dt.getTimezoneOffset() * 60 * 1000);
+const formatDateForModal = function(dueDate) {
+    let dtDate = formatDateWithTimezone(dueDate.value);
     let dueDateFormatted = format(dtDate, "yyyy-MM-dd");
     return dueDateFormatted;
 }
@@ -149,7 +147,7 @@ const handleAddTaskSubmit = function(project) {
     let title = document.querySelector("#task-title");
     let description = document.querySelector("#task-description");
     let dueDate = document.querySelector("#task-due-date");
-    let dueDateFormatted = formatDateWithTimezone(dueDate);
+    let dueDateFormatted = formatDateForModal(dueDate);
     
     let priority = document.querySelector(`input[name="task-priority"]:checked`);
     let priorityVal = getPriorityEnumVal(priority.value);
@@ -161,7 +159,7 @@ const handleEditTaskSubmit = function(task, project) {
     let title = document.querySelector("#task-title");
     let description = document.querySelector("#task-description");
     let dueDate = document.querySelector("#task-due-date");
-    let dueDateFormatted = formatDateWithTimezone(dueDate);
+    let dueDateFormatted = formatDateForModal(dueDate);
     let priority = document.querySelector(`input[name="task-priority"]:checked`);
     let priorityVal = getPriorityEnumVal(priority.value);
 
