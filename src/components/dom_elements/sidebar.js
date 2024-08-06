@@ -1,9 +1,10 @@
 import { Project } from "../project";
 import { ProjectList } from "../projectlist";
 import { createElement } from "../../index";
-import { refreshProjectToDisplay, displayProjectTasks } from "./content";
+import { refreshProjectToDisplay, buildHomeContent } from "./content";
 import { renderAddProjectModal } from "./modal";
 import addIcon from "../../media/add.svg";
+import deleteIcon from "../../media/delete.svg";
 
 
 const sidebar = createElement("div", [], "sidebar", null);
@@ -12,16 +13,32 @@ const initializeSidebar = function() {
     const homeBtn = createElement("button", ["sidebar-btn"], "home-btn", "Home");
     const todayBtn = createElement("button", ["sidebar-btn"], "today-btn", "Today");
     const weekBtn = createElement("button", ["sidebar-btn"], "week-btn", "This Week");
+    homeBtn.addEventListener("click", () => { buildHomeContent() });
 
     sidebar.appendChild(homeBtn);
     sidebar.appendChild(todayBtn);
     sidebar.appendChild(weekBtn);
 }
 
-const createProjectElement = function(project) {
-    let projectBtn = createElement("button", ["sidebar-btn"], project.id, project.name);
-    projectBtn.addEventListener('click', () => refreshProjectToDisplay(project));
-    return projectBtn;
+const handleProjectDeleteClick = function(projectList, project) {
+    projectList.removeProject(project.id);
+    refreshSidebar(projectList);
+}
+
+const createProjectElement = function(projectList, project) {
+    let projectElement = createElement("div", ["project-btn"], null, null);
+    let projectLabel = createElement("div", ["project-label"], null, project.name);
+    projectLabel.addEventListener('click', () => refreshProjectToDisplay(project));
+
+    projectElement.appendChild(projectLabel);
+
+    let deleteBtn = createElement("button", ["project-delete-btn", null, null]);
+    deleteBtn.innerHTML = deleteIcon;
+    deleteBtn.addEventListener("click", () => { handleProjectDeleteClick(projectList, project)});
+
+    projectElement.appendChild(deleteBtn);
+
+    return projectElement;
 }
 
 const addProjectsToSidebar = function(projectList) {
@@ -35,7 +52,7 @@ const addProjectsToSidebar = function(projectList) {
     projectsDiv.appendChild(projectsHeader);
 
     for (let project of projectList.projects) {
-        let projectElement = createProjectElement(project);
+        let projectElement = createProjectElement(projectList, project);
         projectsDiv.appendChild(projectElement);
     }
     sidebar.appendChild(projectsDiv);

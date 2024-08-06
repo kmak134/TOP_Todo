@@ -1,6 +1,7 @@
+import { compareAsc } from "date-fns";
 import { Project } from "../project";
 import { TodoItem } from "../item";
-import { createElement, formatDateForUser, priorities } from "../../index";
+import { createElement, formatDateForUser, priorities, projectList } from "../../index";
 import editIcon from "../../media/edit.svg";
 import deleteIcon from "../../media/delete.svg";
 import addIcon from "../../media/add.svg";
@@ -89,7 +90,7 @@ const createTaskElement = function(project, task) {
     return item;
 }
 
-const buildTasks = function(project) {
+const buildProjectTasks = function(project) {
     let taskHeader = createElement("div", ["tasks-header"], null, `Tasks (${project.items.length})`);
     let addTaskBtn = createElement("button", ["add-task-btn"], null, null);
     addTaskBtn.innerHTML = addIcon;
@@ -108,16 +109,40 @@ const buildTasks = function(project) {
     content.append(tasksDiv);
 }
 
+const buildHomeContent = function() {
+    clearContent();
+    buildHeader("Home");
+
+    let listOfTasks = [];
+    let taskListDiv = createElement("div", ["task-list"], null, null);
+    for (let project of projectList.projects) {
+        for (let task of project.items) {
+            listOfTasks.push(task);
+        }
+    }
+
+    listOfTasks.sort((x, y) => ( compareAsc(x.dueDate, y.dueDate) ));
+
+    for (let task of listOfTasks) {
+        let taskElement = createTaskElement(projectList.findProject(task.project), task);
+        taskListDiv.appendChild(taskElement);
+    }
+
+    let homeHeader = createElement("div", ["tasks-header"], null, `Tasks (${listOfTasks.length})`);
+
+    tasksDiv.appendChild(homeHeader);
+    tasksDiv.append(taskListDiv);
+    content.append(tasksDiv);
+}
+
 const refreshProjectToDisplay = function(project) {
     clearContent();
     buildHeader(project.name);
-    buildTasks(project);
+    buildProjectTasks(project);
 }
 
 const initializeContent = function() {
-    clearContent();
-    buildHeader();
-    buildTasks(new Project());
+    buildHomeContent();
 }
 
 const Content = function() {
@@ -125,5 +150,5 @@ const Content = function() {
     return content;
 }
 
-export { Content, refreshProjectToDisplay }
+export { Content, refreshProjectToDisplay, buildHomeContent }
     

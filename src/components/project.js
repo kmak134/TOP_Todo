@@ -6,6 +6,7 @@ class Project {
     }
 
     addItem(item) {
+        item.project = this._name;
         this.items.push(item);
     }
 

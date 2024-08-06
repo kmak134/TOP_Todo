@@ -16,26 +16,6 @@ $btn-hover-border-color: rgb(64, 93, 114);
     align-items: center;
     padding: 40px 0;
     color: $sidebar-font-color;
-
-    .sidebar-btn {
-        font-size: 1.2rem;
-        background-color: $content-background-color;
-        border: 3px solid $sidebar-color;
-        cursor: pointer;
-        text-align: left;
-        max-width: 250px;
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 20px;
-        border-radius: 3px;
-        color: $sidebar-font-color;
-        transition: 0.4s ease-in-out;
-
-        &:hover {
-            border: 3px solid $btn-hover-border-color;
-        }
-        
-    }
 }
 
 .sidebar-project-div {
@@ -61,5 +41,47 @@ $btn-hover-border-color: rgb(64, 93, 114);
             background-color: $sidebar-color;
             fill: $sidebar-font-color;
         }
+    }
+}
+
+.sidebar-btn {
+    box-sizing: border-box;
+    font-size: 1.2rem;
+    background-color: $content-background-color;
+    border: 3px solid $sidebar-color;
+    cursor: pointer;
+    text-align: left;
+    max-width: 250px;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 3px;
+    color: $sidebar-font-color;
+    transition: 0.4s ease-in-out;
+
+    &:hover {
+        border: 3px solid $btn-hover-border-color;
+    }
+}
+
+.project-btn {
+    @extend .sidebar-btn;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0;
+    align-items: center;
+
+    .project-label {
+        padding: 10px;
+        width: 100%;
+    }
+
+    .project-delete-btn {
+        @include content.item-icon-btn; 
+        width: 2.5rem;
+        height: 2.5rem;
+        padding: 8px;
+        background-color: $content-background-color;
     }
 }

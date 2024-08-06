@@ -237,23 +237,6 @@ html body {
   padding: 40px 0;
   color: rgb(64, 93, 114);
 }
-#sidebar .sidebar-btn {
-  font-size: 1.2rem;
-  background-color: rgb(245, 237, 237);
-  border: 3px solid rgb(127, 161, 195);
-  cursor: pointer;
-  text-align: left;
-  max-width: 250px;
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border-radius: 3px;
-  color: rgb(64, 93, 114);
-  transition: 0.4s ease-in-out;
-}
-#sidebar .sidebar-btn:hover {
-  border: 3px solid rgb(64, 93, 114);
-}
 
 .sidebar-project-div {
   display: flex;
@@ -283,6 +266,50 @@ html body {
   border: none;
   background-color: rgb(127, 161, 195);
   fill: rgb(64, 93, 114);
+}
+
+.sidebar-btn, .project-btn {
+  box-sizing: border-box;
+  font-size: 1.2rem;
+  background-color: rgb(245, 237, 237);
+  border: 3px solid rgb(127, 161, 195);
+  cursor: pointer;
+  text-align: left;
+  max-width: 250px;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 3px;
+  color: rgb(64, 93, 114);
+  transition: 0.4s ease-in-out;
+}
+.sidebar-btn:hover, .project-btn:hover {
+  border: 3px solid rgb(64, 93, 114);
+}
+
+.project-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0;
+  align-items: center;
+}
+.project-btn .project-label {
+  padding: 10px;
+  width: 100%;
+}
+.project-btn .project-delete-btn {
+  width: 1.5rem;
+  height: 1.5rem;
+  background-size: cover;
+  background-color: rgb(235, 229, 229);
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 8px;
+  background-color: rgb(245, 237, 237);
 }
 
 html {

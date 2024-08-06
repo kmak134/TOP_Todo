@@ -12,7 +12,8 @@ class TodoItem {
         this._dueDate = dueDate, 
         this._priority = priority,
         this._isComplete = false,
-        this._id = "item" + Math.random().toString(16).slice(2)
+        this._id = "item" + Math.random().toString(16).slice(2),
+        this._project = null
     }
 
     get title() {
@@ -57,6 +58,14 @@ class TodoItem {
 
     get id() {
         return this._id;
+    }
+
+    get project() {
+        return this._project;
+    }
+
+    set project(project) {
+        this._project = project;
     }
 }
 

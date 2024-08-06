@@ -61,5 +61,5 @@ function intiializeApp() {
 
 intiializeApp();
 
-export { createElement, formatDateForUser, priorities }
+export { createElement, formatDateForUser, priorities, projectList }
 
