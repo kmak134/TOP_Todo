@@ -5,14 +5,16 @@ class TodoItem {
         title = "",
         description = "",
         dueDate = new Date(),
-        priority = priorities.low
+        priority = priorities.low,
+        isComplete = false,
+        id = "item" + Math.random().toString(16).slice(2)
     ) {
         this._title = title,
         this._description = description,
         this._dueDate = dueDate, 
         this._priority = priority,
-        this._isComplete = false,
-        this._id = "item" + Math.random().toString(16).slice(2),
+        this._isComplete = isComplete,
+        this._id = id,
         this._project = null
     }
 

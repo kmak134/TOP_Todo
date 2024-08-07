@@ -3,7 +3,7 @@ import { ProjectList } from "../projectlist";
 import { Project } from "../project";
 import { TodoItem } from "../item";
 import modalCloseIcon from "../../media/close.svg";
-import { createElement, formatDateForUser, formatDateWithTimezone, priorities } from "../../index";
+import { createElement, formatDateForUser, formatDateWithTimezone, updateLocalStorage, priorities } from "../../index";
 import { refreshProjectToDisplay } from "./content";
 import { refreshProjects } from "./sidebar";
 
@@ -193,6 +193,7 @@ const createAddTaskForm = function(project) {
         handleAddTaskSubmit(project);
         closeFormAndModal(addTaskForm);
         refreshProjectToDisplay(project);
+        updateLocalStorage();
     });
 
     return addTaskForm;
@@ -217,6 +218,7 @@ const createEditTaskForm = function(task, project) {
         handleEditTaskSubmit(task, project);
         closeFormAndModal(editTaskForm);
         refreshProjectToDisplay(project);
+        updateLocalStorage();
     });
 
     return editTaskForm;
@@ -234,6 +236,7 @@ const createAddProjectForm = function(projectList) {
         handleAddProjectSubmit(projectList);
         closeFormAndModal(addProjectForm);
         refreshProjects(projectList);
+        updateLocalStorage();
     });
 
     return addProjectForm;

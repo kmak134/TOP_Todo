@@ -1,7 +1,7 @@
 import { compareAsc, isToday, isThisWeek } from "date-fns";
 import { Project } from "../project";
 import { TodoItem } from "../item";
-import { createElement, formatDateForUser, formatDateWithTimezone, priorities, projectList } from "../../index";
+import { createElement, formatDateForUser, formatDateWithTimezone, updateLocalStorage, priorities, projectList } from "../../index";
 import editIcon from "../../media/edit.svg";
 import deleteIcon from "../../media/delete.svg";
 import addIcon from "../../media/add.svg";
@@ -46,11 +46,13 @@ const switchTaskCompleteStatus = function(item, task) {
         item.classList.add("task-complete");
     }
     task.isComplete = !task.isComplete;
+    updateLocalStorage();
 }
 
 const handleTaskDeleteClick = function(task, project) {
     project.removeItem(task.id);
     refreshProjectToDisplay(project);
+    updateLocalStorage();
 }
 
 const createTaskElement = function(project, task) {

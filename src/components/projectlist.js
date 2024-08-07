@@ -1,6 +1,8 @@
 class ProjectList {
-    constructor() {
-        this._projects = [];
+    constructor(
+        projects = []
+    ) {
+        this._projects = projects;
     }
 
     addProject(project) {
@@ -13,6 +15,10 @@ class ProjectList {
 
     findProject(projectName) {
         return this._projects.find(project => project._name == projectName);
+    }
+
+    findProjectById(projectId) {
+        return this._projects.find(project => project._id == projectId);
     }
 
     get projects() {

@@ -1,8 +1,11 @@
 class Project {
-    constructor(name) {
-        this._name = name;
+    constructor(
+        name,
+        id = "proj" + Math.random().toString(16).slice(2)
+    ) {
+        this._name = name,
         this._items = [],
-        this._id = "proj" + Math.random().toString(16).slice(2)
+        this._id = id
     }
 
     addItem(item) {

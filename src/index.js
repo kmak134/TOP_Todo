@@ -4,26 +4,24 @@ import { TodoItem } from "./components/item";
 import { Project } from "./components/project";
 import { ProjectList } from "./components/projectlist";
 import { Content } from "./components/dom_elements/content";
-import { Modal, renderAddTaskModal } from "./components/dom_elements/modal";
+import { Modal } from "./components/dom_elements/modal";
 import { Sidebar } from "./components/dom_elements/sidebar";
 
 const app = document.querySelector("#todo-container");
-const sidebar = createElement("div", [], "sidebar", null);
-const content = createElement("div", [], "content", null);
 
 const projectList = new ProjectList();
-const project1 = new Project("School");
-const project2 = new Project("Chores");
-const item1 = new TodoItem("Laundry", "Wash pants", format(new Date(2024, 7, 29), "yyyy-MM-dd"), 3);
-const item2 = new TodoItem("HSR dailies",null, format(new Date(2024, 7, 28), "yyyy-MM-dd"), 1);
-const item3 = new TodoItem("Homework", "Math", format(new Date(2024, 7, 28), "yyyy-MM-dd"), 2);
-const item4 = new TodoItem("Today Item", "ZZZ", format(new Date(2024, 7, 5), "yyyy-MM-dd"), 2)
-project1.addItem(item3);
-project2.addItem(item1);
-project2.addItem(item2);
-project1.addItem(item4);
-projectList.addProject(project1);
-projectList.addProject(project2);
+// const project1 = new Project("School");
+// const project2 = new Project("Chores");
+// const item1 = new TodoItem("Laundry", "Wash pants", format(new Date(2024, 7, 29), "yyyy-MM-dd"), 3);
+// const item2 = new TodoItem("HSR dailies",null, format(new Date(2024, 7, 28), "yyyy-MM-dd"), 1);
+// const item3 = new TodoItem("Homework", "Math", format(new Date(2024, 7, 28), "yyyy-MM-dd"), 2);
+// const item4 = new TodoItem("Today Item", "ZZZ", format(new Date(2024, 7, 5), "yyyy-MM-dd"), 2)
+// project1.addItem(item3);
+// project2.addItem(item1);
+// project2.addItem(item2);
+// project1.addItem(item4);
+// projectList.addProject(project1);
+// projectList.addProject(project2);
 
 
 const priorities = {
@@ -60,7 +58,52 @@ function formatDateForUser(dueDate) {
     return formattedDate;
 }
 
+// const convertJSONToProject = function(project) {
+
+//     return new Project(project.name, project.id);
+// }
+
+// const convertJSONToTodoItem = function(item) {
+//     return new TodoItem(item.title, item.description, item.dueDate, item.priority);
+// }
+
+const updateLocalStorage = function() {
+    localStorage.setItem("projects", JSON.stringify(projectList.projects));
+}
+
+const retrieveProjectsFromStorage = function() {
+    let projects = JSON.parse(localStorage.getItem("projects"));
+    if (projects) {
+        for (let project of projects) {
+            console.log(project);
+            let newProject = new Project(project._name, project._id);
+            console.log(newProject);
+            if (project._items) {
+                for (let task of project._items) {
+                    let newTask = new TodoItem(task._title, task._description, task._dueDate, task._priority, task._isComplete, task._id);
+                    newProject.addItem(newTask);
+                }
+            }
+            projectList.addProject(newProject);
+        }
+    }
+}
+
+// const updateItemsForProjectStorage = function(project) {
+//     localStorage.setItem(project.id, JSON.stringify(project.items));
+// }
+
+// const retrieveItemsFromStorage = function(project) {
+//     let items = JSON.parse(localStorage.getItem(project.id));
+//     if (items) {
+//         return items.map(item => convertJSONToTodoItem(item));
+//     } else {
+//         return [];
+//     }
+// }
+
 function intiializeApp() {
+    retrieveProjectsFromStorage();
     app.appendChild(Sidebar(projectList));
     app.appendChild(Content());
     app.appendChild(Modal());
@@ -68,5 +111,5 @@ function intiializeApp() {
 
 intiializeApp();
 
-export { createElement, formatDateForUser, formatDateWithTimezone, priorities, projectList }
+export { createElement, formatDateForUser, formatDateWithTimezone, updateLocalStorage, priorities, projectList }
 

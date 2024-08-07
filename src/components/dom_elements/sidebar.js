@@ -1,6 +1,6 @@
 import { Project } from "../project";
 import { ProjectList } from "../projectlist";
-import { createElement } from "../../index";
+import { createElement, updateLocalStorage } from "../../index";
 import { refreshProjectToDisplay, buildHomeContent, buildTodayContent, buildThisWeekContent } from "./content";
 import { renderAddProjectModal } from "./modal";
 import addIcon from "../../media/add.svg";
@@ -25,6 +25,7 @@ const initializeSidebar = function() {
 const handleProjectDeleteClick = function(projectList, project) {
     projectList.removeProject(project.id);
     refreshSidebar(projectList);
+    updateLocalStorage();
 }
 
 const createProjectElement = function(projectList, project) {
