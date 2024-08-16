@@ -11,6 +11,7 @@ const content = createElement("div", [], "content", null);
 const contentHeader = createElement("div", ["content-header"], null, null);
 const tasksDiv = createElement("div", ["tasks-div"], null, null);
 
+
 const clearContent = function() {
     content.innerHTML = "";
     contentHeader.innerHTML = "";

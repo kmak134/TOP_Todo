@@ -10,19 +10,6 @@ import { Sidebar } from "./components/dom_elements/sidebar";
 const app = document.querySelector("#todo-container");
 
 const projectList = new ProjectList();
-// const project1 = new Project("School");
-// const project2 = new Project("Chores");
-// const item1 = new TodoItem("Laundry", "Wash pants", format(new Date(2024, 7, 29), "yyyy-MM-dd"), 3);
-// const item2 = new TodoItem("HSR dailies",null, format(new Date(2024, 7, 28), "yyyy-MM-dd"), 1);
-// const item3 = new TodoItem("Homework", "Math", format(new Date(2024, 7, 28), "yyyy-MM-dd"), 2);
-// const item4 = new TodoItem("Today Item", "ZZZ", format(new Date(2024, 7, 5), "yyyy-MM-dd"), 2)
-// project1.addItem(item3);
-// project2.addItem(item1);
-// project2.addItem(item2);
-// project1.addItem(item4);
-// projectList.addProject(project1);
-// projectList.addProject(project2);
-
 
 const priorities = {
     high: 1,

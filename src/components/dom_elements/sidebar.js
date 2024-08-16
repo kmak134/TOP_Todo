@@ -9,6 +9,14 @@ import deleteIcon from "../../media/delete.svg";
 
 const sidebar = createElement("div", [], "sidebar", null);
 
+const addResponsiveSidebar = function() {
+    if (window.innerWidth <= 1300) {
+        sidebar.classList.add("hide-sidebar");
+    } else {
+        sidebar.classList.remove("hide-sidebar");
+    }
+}
+
 const initializeSidebar = function() {
     const homeBtn = createElement("button", ["sidebar-btn"], "home-btn", "Home");
     const todayBtn = createElement("button", ["sidebar-btn"], "today-btn", "Today");
@@ -73,6 +81,6 @@ const Sidebar = function(projectList) {
     return sidebar;
 }
 
-export { Sidebar, refreshSidebar as refreshProjects }
+export { Sidebar, refreshSidebar as refreshProjects, addResponsiveSidebar }
     
 

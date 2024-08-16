@@ -16,6 +16,10 @@ $btn-hover-border-color: rgb(64, 93, 114);
     align-items: center;
     padding: 40px 0;
     color: $sidebar-font-color;
+
+    &.sidebar-hidden {
+        transform: translateX(-300px);
+    }
 }
 
 .sidebar-project-div {

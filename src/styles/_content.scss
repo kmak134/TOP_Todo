@@ -5,6 +5,7 @@ $medium-priority-color: #F9E400;
 $high-priority-color: #E4003A;
 
 $item-color: rgb(235, 229, 229);
+$item-complete-color: rgb(201, 201, 201);
 
 @mixin item-icon-btn {
     width: 1.5rem;
@@ -88,8 +89,9 @@ $item-color: rgb(235, 229, 229);
 
         .item-title {
             font-size: 1.2rem;
-            max-width: 600px;
+            max-width: 550px;
             text-overflow: ellipsis;
+            overflow: hidden;
         }
     }
 
@@ -99,6 +101,7 @@ $item-color: rgb(235, 229, 229);
         align-items: center;
         justify-content: center;
         column-gap: 20px;
+        min-width: 300px;
 
         .item-due-date {
             font-weight: 500;
@@ -124,6 +127,10 @@ $item-color: rgb(235, 229, 229);
             @include item-icon-btn();
         }
     }
+
+    &.task-complete {
+        background-color: $item-complete-color;
+    }
 }
 
 .task-complete {
@@ -134,6 +141,16 @@ $item-color: rgb(235, 229, 229);
 
         .item-title {
             text-decoration: line-through;
+        }
+    }
+
+    .item-right-part {
+        .item-edit-btn {
+            background-color: $item-complete-color;
+        }
+
+        .item-delete-btn {
+            background-color: $item-complete-color;
         }
     }
 }
