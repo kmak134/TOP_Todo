@@ -22,23 +22,29 @@ html {
 
 #todo-container {
     width: 100%;
-    display: grid;
-    grid-template-areas:
-      "header header"
-      "sidebar content";
-    grid-template-rows: min-content 1fr;
-    grid-template-columns: max-content 1fr;
+    display: flex;
+    flex-direction: column;
     border: 1px solid black;
 }
 
+
+#content-container {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
 #header {
-    grid-area: header;
+
 }
 
 #sidebar {
-    grid-area: sidebar;
+    min-width: 300px;
+
+
 }
 
 #content {
-    grid-area: content;
+    width: 100%;
+
 }

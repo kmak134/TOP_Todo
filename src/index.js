@@ -5,9 +5,11 @@ import { Project } from "./components/project";
 import { ProjectList } from "./components/projectlist";
 import { Content } from "./components/dom_elements/content";
 import { Modal } from "./components/dom_elements/modal";
-import { Sidebar } from "./components/dom_elements/sidebar";
+import { Sidebar, addResponsiveSidebar, toggleSidebar } from "./components/dom_elements/sidebar";
+import menuIcon from "./media/menu.svg";
 
 const app = document.querySelector("#todo-container");
+const header = document.querySelector("#header");
 
 const projectList = new ProjectList();
 
@@ -16,6 +18,10 @@ const priorities = {
     medium: 2,
     low: 3
 }
+
+window.addEventListener('resize', addResponsiveSidebar);
+window.addEventListener('load', addResponsiveSidebar);
+
 
 function createElement(type, classes, id, content) {
     const element = document.createElement(type);
@@ -45,15 +51,6 @@ function formatDateForUser(dueDate) {
     return formattedDate;
 }
 
-// const convertJSONToProject = function(project) {
-
-//     return new Project(project.name, project.id);
-// }
-
-// const convertJSONToTodoItem = function(item) {
-//     return new TodoItem(item.title, item.description, item.dueDate, item.priority);
-// }
-
 const updateLocalStorage = function() {
     localStorage.setItem("projects", JSON.stringify(projectList.projects));
 }
@@ -76,24 +73,30 @@ const retrieveProjectsFromStorage = function() {
     }
 }
 
-// const updateItemsForProjectStorage = function(project) {
-//     localStorage.setItem(project.id, JSON.stringify(project.items));
-// }
 
-// const retrieveItemsFromStorage = function(project) {
-//     let items = JSON.parse(localStorage.getItem(project.id));
-//     if (items) {
-//         return items.map(item => convertJSONToTodoItem(item));
-//     } else {
-//         return [];
-//     }
-// }
+
+const createHeader = function() {
+    let header = createElement("div", ["header"], "header", null);
+    let menuBtn = createElement("button", null, "menu-btn", null);
+    menuBtn.innerHTML = menuIcon;
+    menuBtn.addEventListener('click', () => {
+        toggleSidebar()
+    })
+    let headerText = createElement("div", null, null, "Todo");
+    header.appendChild(menuBtn);
+    header.appendChild(headerText);
+    app.appendChild(header);
+}
+
+const contentContainer = createElement("div", ["content-container"], "content-container", null);
 
 function intiializeApp() {
     retrieveProjectsFromStorage();
-    app.appendChild(Sidebar(projectList));
-    app.appendChild(Content());
-    app.appendChild(Modal());
+    createHeader();
+    contentContainer.appendChild(Sidebar(projectList));
+    contentContainer.appendChild(Content());
+    contentContainer.appendChild(Modal());
+    app.appendChild(contentContainer);
 }
 
 intiializeApp();

@@ -5,17 +5,21 @@ import { createElement, formatDateForUser, formatDateWithTimezone, updateLocalSt
 import editIcon from "../../media/edit.svg";
 import deleteIcon from "../../media/delete.svg";
 import addIcon from "../../media/add.svg";
+import infoIcon from "../../media/info.svg";
 import { renderAddTaskModal, renderEditTaskModal, renderDetailsModal } from "./modal";
 
 const content = createElement("div", [], "content", null);
 const contentHeader = createElement("div", ["content-header"], null, null);
 const tasksDiv = createElement("div", ["tasks-div"], null, null);
 
-
 const clearContent = function() {
     content.innerHTML = "";
     contentHeader.innerHTML = "";
     tasksDiv.innerHTML = "";
+}
+
+const toggleContent = function() {
+    content.classList.toggle("blur-content");
 }
 
 const buildHeader = function(title) {
@@ -71,8 +75,9 @@ const createTaskElement = function(project, task) {
 
     let rightPart = createElement("div", ["item-right-part"], null, null);
     let dueDate = createElement("div", ["item-due-date"], null, formatDateForUser(task.dueDate));
-    let detailBtn = createElement("button", ["item-detail-btn"], null, "DETAILS");
+    let detailBtn = createElement("button", ["item-detail-btn"], null, null);
     detailBtn.addEventListener("click", () => renderDetailsModal(task, project));
+    detailBtn.innerHTML = infoIcon;
 
     let editBtn = createElement("button", ["item-edit-btn"], null, null);
     editBtn.addEventListener("click", () => renderEditTaskModal(task, project));
@@ -201,5 +206,11 @@ const Content = function() {
     return content;
 }
 
-export { Content, refreshProjectToDisplay, buildHomeContent, buildTodayContent, buildThisWeekContent }
+export { Content, 
+        refreshProjectToDisplay, 
+        buildHomeContent, 
+        buildTodayContent, 
+        buildThisWeekContent,
+        toggleContent 
+}
     

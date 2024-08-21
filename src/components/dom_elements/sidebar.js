@@ -1,20 +1,27 @@
 import { Project } from "../project";
 import { ProjectList } from "../projectlist";
 import { createElement, updateLocalStorage } from "../../index";
-import { refreshProjectToDisplay, buildHomeContent, buildTodayContent, buildThisWeekContent } from "./content";
+import { refreshProjectToDisplay, buildHomeContent, buildTodayContent, buildThisWeekContent, toggleContent } from "./content";
 import { renderAddProjectModal } from "./modal";
 import addIcon from "../../media/add.svg";
 import deleteIcon from "../../media/delete.svg";
 
 
 const sidebar = createElement("div", [], "sidebar", null);
+const content = document.querySelector("#content");
 
 const addResponsiveSidebar = function() {
-    if (window.innerWidth <= 1300) {
+    if (window.innerWidth <= 1000) {
         sidebar.classList.add("hide-sidebar");
     } else {
         sidebar.classList.remove("hide-sidebar");
     }
+}
+
+const toggleSidebar = function() {
+    sidebar.classList.toggle("hide-sidebar");
+    sidebar.classList.toggle("show-sidebar");
+    toggleContent();
 }
 
 const initializeSidebar = function() {
@@ -81,6 +88,6 @@ const Sidebar = function(projectList) {
     return sidebar;
 }
 
-export { Sidebar, refreshSidebar as refreshProjects, addResponsiveSidebar }
+export { Sidebar, refreshSidebar as refreshProjects, addResponsiveSidebar, toggleSidebar }
     
 

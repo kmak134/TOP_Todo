@@ -30,6 +30,10 @@ $item-complete-color: rgb(201, 201, 201);
         font-size: 2.5rem;
         font-weight: 600;
     }
+
+    &.blur-content {
+        opacity: 0.3;
+    }
 }
 
 .tasks-div {
@@ -89,7 +93,7 @@ $item-complete-color: rgb(201, 201, 201);
 
         .item-title {
             font-size: 1.2rem;
-            max-width: 550px;
+            max-width: 450px;
             text-overflow: ellipsis;
             overflow: hidden;
         }
@@ -108,22 +112,7 @@ $item-complete-color: rgb(201, 201, 201);
             font-size: 0.8rem;
         }
 
-        .item-detail-btn {
-            font-size: 0.9rem;
-            color: rgb(117, 134, 148);
-            border-color: rgb(117, 134, 148);
-            background: none;
-            cursor: pointer;
-            padding: 5px 10px;
-            border-radius: 3px;
-            letter-spacing: 1px;
-        }
-
-        .item-edit-btn {
-            @include item-icon-btn();
-        }
-
-        .item-delete-btn {
+        .item-detail-btn, .item-edit-btn, .item-delete-btn {
             @include item-icon-btn();
         }
     }
@@ -166,4 +155,70 @@ $item-complete-color: rgb(201, 201, 201);
 .priority-high {
     border-left: 15px solid $high-priority-color;
 }
+
+@media (max-width: 1200px) {
+    .task-item {
+        .item-left-part {
+            .item-title {
+                max-width: 250px;
+            }
+        }
+    }
+}
+
+@media (max-width: 1000px) {
+    .task-item {
+        .item-left-part {
+            .item-title {
+                max-width: 300px;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .task-item {
+        .item-left-part {
+            .item-title {
+                max-width: 150px;
+            }
+        }
+    }
+
+    .task-item {
+        .item-right-part {
+            min-width: 200px;
+            column-gap: 10px;
+
+            .item-due-date {
+                width: 50px;
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .task-item {
+        padding: 5px 10px;
+
+        .item-left-part {
+            .item-checkbox {
+                margin-right: 0.5rem;
+            }
+            .item-title {
+                font-size: 1rem;
+                min-width: 75px;
+                max-width: 75px;
+            }
+        }
+
+        .item-right-part {
+            .item-detail-btn, .item-edit-btn, .item-delete-btn {
+                width: 1.3rem;
+                height: 1.3rem;
+            }
+        }
+    }
+}
+
 

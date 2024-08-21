@@ -16,9 +16,14 @@ $btn-hover-border-color: rgb(64, 93, 114);
     align-items: center;
     padding: 40px 0;
     color: $sidebar-font-color;
+    transition: 0.25s;
 
-    &.sidebar-hidden {
-        transform: translateX(-300px);
+    &.hide-sidebar {
+        display: none;
+    }
+
+    &.show-sidebar {
+        display: block;
     }
 }
 
@@ -87,5 +92,17 @@ $btn-hover-border-color: rgb(64, 93, 114);
         height: 2.5rem;
         padding: 8px;
         background-color: $content-background-color;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    #sidebar {
+        z-index: 5;
+        &.show-sidebar {
+            position: fixed;
+            height: 100%;
+            padding-left: 40px;
+            opacity: 1;
+        }
     }
 }
